@@ -2,7 +2,7 @@
 /* Attempt MySQL server connection. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 try{
-    $pdo = new PDO("mysql:host=localhost;", "root", "");
+    $pdo = new PDO("mysql:host=localhost;", "root", "123456789");
     // Set the PDO error mode to exception
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e){
@@ -19,7 +19,7 @@ try{
 }
 
 try{
-    $pdo = new PDO("mysql:host=localhost;dbname=camagru", "root", "");
+    $pdo = new PDO("mysql:host=localhost;dbname=camagru", "root", "123456789");
     // Set the PDO error mode to exception
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e){
@@ -34,7 +34,7 @@ try{
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )";    
     $pdo->exec($sql);
-   // echo "Table created successfully.";
+    echo "Table created successfully.";
 } catch(PDOException $e){
     die("ERROR: Could not able to execute $sql. " . $e->getMessage());
 }
