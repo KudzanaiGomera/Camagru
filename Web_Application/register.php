@@ -116,15 +116,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if($stmt->execute()){
 
                 //Send Email
-                echo "email sent";
                 $to = $email;
                 $subject = "Email Verification";
-                $message = "<a href= 'http://localhost/Web_Application/verify.php?vkey=$vkey'>Register Account</a>";
+                $message =  "<a href= 'http://localhost/Web_Application/verify.php?vkey=$vkey'>Register Account</a>";
                 $headers = "From: kudzie.gomera@yahoo.com \r\n";
                 $headers .= "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html:charset=UTF-8" . "\r\n";
 
-                mail($to,$subject,$message,$headers);
+                if (mail($to,$subject,$message,$headers))
+                {
+                  echo ("success");
+                }
+                else {
+                  echo("Fail");
+                }
 
                 // Redirect to login page
                 header("location: login.php");
