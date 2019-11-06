@@ -26,6 +26,8 @@ try{
     die("ERROR: Could not connect. " . $e->getMessage());
 }
 
+
+/*user table*/
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS users(
         id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -41,6 +43,21 @@ try{
 } catch(PDOException $e){
     die("ERROR: Could not able to execute $sql. " . $e->getMessage());
 }
+
+/*uploads table */
+
+try{
+    $sql = "CREATE TABLE  IF NOT EXISTS uploads(
+        id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        image VARCHAR(200),
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )";
+    $pdo->exec($sql);
+    echo "Table created successfully.";
+} catch(PDOException $e){
+    die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+}
+
 
 /*try{
     $sql = "INSERT INTO  users (username, password) VALUES ('kudzi', 'kudzanai')";
