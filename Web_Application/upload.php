@@ -1,15 +1,17 @@
 <?php
 
-// Initialize the session
+/// Initialize the session
 session_start();
 
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: upload.php");
+// Check if the user is logged in, if not then redirect to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
     exit;
 }
 
+// Include config file
 require_once "config.php";
+
 
   // Initialize message variable
   $msg = "";
@@ -36,7 +38,7 @@ require_once "config.php";
     $_SESSION["username"] = $username;
 
     // Redirect user to welcome page
-    header("location: welcome.php");
+    header("location: user_profile.php");
   }
   $result = mysqli_query($db, "SELECT * FROM uploads");
 ?>
@@ -86,7 +88,7 @@ require_once "config.php";
       echo "</div>";
     }
   ?>
-  <form method="POST" action="welcome.php" enctype="multipart/form-data">
+  <form method="POST" action="user_profile.php" enctype="multipart/form-data">
   	<input type="hidden" name="size" value="1000000">
   	<div>
   	  <input type="file" name="image">

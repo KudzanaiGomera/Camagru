@@ -1,3 +1,4 @@
 https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
 https://www.youtube.com/watch?v=LXQfEFEfFcM
 https://codewithawa.com/posts/image-upload-using-php-and-mysql-database
+https://stackoverflow.com/questions/9548373/creating-a-user-specific-gallery-area-php
