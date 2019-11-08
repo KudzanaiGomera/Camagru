@@ -19,14 +19,14 @@ require_once "config.php";
   // If upload button is clicked ...
   if (isset($_POST['upload'])) {
   	// Get image name
-  	$image = $_FILES['image']['name'];
+  	$image = $_FILES['image'];
 
   	// image file directory
   	$target = "images/".basename($image);
 
   	$sql = "INSERT INTO uploads (image) VALUES ('$image')";
   	// execute query
-  	mysqli_query($db, $sql);
+  	mysqli_query($sql);
 
   	if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
   		$msg = "Image uploaded successfully";
@@ -88,15 +88,6 @@ require_once "config.php";
       echo "</div>";
     }
   ?>
-  <form method="POST" action="user_profile.php" enctype="multipart/form-data">
-  	<input type="hidden" name="size" value="1000000">
-  	<div>
-  	  <input type="file" name="image">
-  	</div>
-  	<div>
-  		<button type="submit" name="upload">Upload</button>
-  	</div>
-  </form>
 </div>
 </body>
 </html>

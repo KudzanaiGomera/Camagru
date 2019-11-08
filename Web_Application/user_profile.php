@@ -14,17 +14,65 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
-        body{ font: 14px sans-serif; text-align: center; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="page-header">
-        <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to  your profile.</h1>
-    </div>
-    <p>
-        <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
-    </p>
+  <main>
+
+    <section class="gallery-links">
+      <div class="wrapper">
+        <h2><?php echo htmlspecialchars($_SESSION["username"]); ?></h2>
+        <div class="gallery-container">
+          <a href="#">
+            <div></div>
+            <h3>Title</h3>
+            <p>Paragraph</P>
+          </a>
+          <a href="#">
+            <div></div>
+            <h3>Title</h3>
+            <p>Paragraph</P>
+          </a>
+          <a href="#">
+            <div></div>
+            <h3>Title</h3>
+            <p>Paragraph</P>
+          </a>
+          <a href="#">
+            <div></div>
+            <h3>Title</h3>
+            <p>Paragraph</P>
+          </a>
+          <a href="#">
+            <div></div>
+            <h3>Title</h3>
+            <p>Paragraph</P>
+          </a>
+          <a href="#">
+            <div></div>
+            <h3>Title</h3>
+            <p>Paragraph</P>
+          </a>
+        </div>
+      </div>
+    <section>
+
+  </main>
+
+  <div class="gallery-upload">
+    <form method="POST" action="upload.php" method="post" enctype="multipart/form-data">
+    	<input type="hidden" name="size" value="1000000">
+    	<div>
+    	  <input type="file" name="image">
+    	</div>
+    	<div>
+    		<button type="submit" formaction="upload.php">Upload</button>
+        <button type="submit" formaction="camera.php">Camera</button>
+        <button type="submit" formaction="gallery.php">Gallery</button>
+        <button type="submit" formaction="logout.php">Sign Out of Your Account</button>
+    	</div>
+    </form>
+  </div>
+
 </body>
 </html>

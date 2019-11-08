@@ -1,0 +1,71 @@
+body{
+   font: 14px sans-serif;
+   text-align: center;
+  }
+
+  /**Gallery**/
+  .gallery-links h2{
+    font-family: Catamaran;
+    font-size: 28px;
+    font-weight: 600;
+    color: deepskyblue;
+    text-transform: uppercase;
+  }
+
+  .gallery-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+  }
+
+  .gallery-container a {
+    width: 230px;
+    margin: 20px 10px 0;
+  }
+
+  .gallery-container a:hover{
+    opacity: 0.8;
+  }
+
+  .gallery-container a div{
+    width: 100%;
+    height: 235px;
+    background-color: blue;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .gallery-conatiner a  h3{
+    font-family: Catamaran;
+    font-size: 20px;
+    font-weight: 700;
+    color: deepskyblue;
+  }
+
+  .gallery-upload{
+   width: 80%;
+   margin: 20px auto;
+   border: 2px solid deepskyblue;
+  }
+  form{
+   width: 50%;
+   margin: 20px auto;
+  }
+  form div{
+   margin-top: 5px;
+  }
+  button{
+    background-color: deepskyblue;
+    padding: 15px 22px;
+    display: inline-block;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    margin: 2px;
+    opacity: 0.8;
+    border-radius: 15px 10px;
+  }
