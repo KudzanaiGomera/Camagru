@@ -7,6 +7,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+
+require_once "upload.php";
 ?>
 
 <!DOCTYPE html>
@@ -23,36 +25,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       <div class="wrapper">
         <h2><?php echo htmlspecialchars($_SESSION["username"]); ?></h2>
         <div class="gallery-container">
-          <a href="#">
+          <?php
+          $sql = "SELECT * FROM uploads ORDER BY orderGallery DESC";
+          if (mysqli_stmt_prepare($sql)){
+            echo "SQL statement failed";
+          }
+          echo '<a href="#">
             <div></div>
             <h3>Title</h3>
             <p>Paragraph</P>
-          </a>
-          <a href="#">
-            <div></div>
-            <h3>Title</h3>
-            <p>Paragraph</P>
-          </a>
-          <a href="#">
-            <div></div>
-            <h3>Title</h3>
-            <p>Paragraph</P>
-          </a>
-          <a href="#">
-            <div></div>
-            <h3>Title</h3>
-            <p>Paragraph</P>
-          </a>
-          <a href="#">
-            <div></div>
-            <h3>Title</h3>
-            <p>Paragraph</P>
-          </a>
-          <a href="#">
-            <div></div>
-            <h3>Title</h3>
-            <p>Paragraph</P>
-          </a>
+          </a>';
+          ?>
         </div>
       </div>
     <section>

@@ -49,7 +49,10 @@ try{
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS uploads(
         id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        image VARCHAR(200),
+        titleGallery TEXT NOT NULL,
+        descGallery TEXT NOT NULL,
+        imageFullName VARCHAR(200),
+        orderGallery,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($sql);

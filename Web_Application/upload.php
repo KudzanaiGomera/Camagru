@@ -12,82 +12,75 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 // Include config file
 require_once "config.php";
 
-
-  // Initialize message variable
-  $msg = "";
-
-  // If upload button is clicked ...
-  if (isset($_POST['upload'])) {
-  	// Get image name
-  	$image = $_FILES['image'];
-
-  	// image file directory
-  	$target = "images/".basename($image);
-
-  	$sql = "INSERT INTO uploads (image) VALUES ('$image')";
-  	// execute query
-  	mysqli_query($sql);
-
-  	if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-  		$msg = "Image uploaded successfully";
-  	}else{
-  		$msg = "Failed to upload image";
-  	}
-    $_SESSION["loggedin"] = true;
-    $_SESSION["id"] = $id;
-    $_SESSION["username"] = $username;
-
-    // Redirect user to welcome page
-    header("location: user_profile.php");
+if (isset($_POST['submit']))
+{
+  $newFileName = $_POST['filename'];
+  if($_POST['filename']){
+    $newFileName = "gallery";
+  } else {
+    $newFileName = strtolower(str_replace(" ", "-", $newFileName));
   }
-  $result = mysqli_query($db, "SELECT * FROM uploads");
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Image Upload</title>
-<style type="text/css">
-   #content{
-   	width: 50%;
-   	margin: 20px auto;
-   	border: 1px solid #cbcbcb;
-   }
-   form{
-   	width: 50%;
-   	margin: 20px auto;
-   }
-   form div{
-   	margin-top: 5px;
-   }
-   #img_div{
-   	width: 80%;
-   	padding: 5px;
-   	margin: 15px auto;
-   	border: 1px solid #cbcbcb;
-   }
-   #img_div:after{
-   	content: "";
-   	display: block;
-   	clear: both;
-   }
-   img{
-   	float: left;
-   	margin: 5px;
-   	width: 300px;
-   	height: 140px;
-   }
-</style>
-</head>
-<body>
-<div id="content">
-  <?php
-    while ($row = mysqli_fetch_array($result)) {
-      echo "<div id='img_div'>";
-      	echo "<img src='images/".$row['image']."' >";
-      	echo "<p>".$row['image_text']."</p>";
-      echo "</div>";
+  $imageTitle = $_POST['filetitle'];
+  $imageDesc = $_POST['filedesc'];
+
+  $file = $_FILES['file'];
+
+  $fileName = $file['name'];
+  $filetype = $file['file'];
+  $fileTempName = $file['tmp_name'];
+  $fileError = $file['error'];
+  $fileSize = $file['size'];
+
+  $fileExt = explode(".", $fileName);
+  $fileActualExt = strtolower(end($fileExt));
+
+  $allowed = array("jpg", "jpeg", "png");
+
+  if (in_array($fileActualExt, $allowed))
+  {
+    if ($fileError == 0){
+      if ($fileSize > 2000000){
+        $imageFullName = $newFileName . "." . uniqid("", true) . "." . $fileActualExt;
+        $fileDestination = "images/gallery/" . $imageFullName;
+
+        if (empty($imageTitle) || empty($imageDesc)) {
+          header("location: user_profile.php")
+          exit();
+        } else{
+          $sql = "SELECT * FROM uploads";
+          if (!mysqli_stmt_prepare($sql)) {
+            echo "SQL statement failed";
+          }else {
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $rowCount = mysqli_num_rows($result);
+            $setImageOrder = $rowCount + 1;
+
+            $dql = "INSERT INTO uploads (titleGallery, descGallery, imageFullName, orderGallery) VALUES (?,?,?,?)";
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+              echo "SQL statement failed";
+            }else {
+              mysql_stmt_bind_param($stmt, "ssss",$imageTitle, $imageDesc, $fileName, $setImageOrder);
+              mysqli_stmt_execute($stmt);
+
+              move_upload_file($fileTempName, $fileDestination);
+              header("location: user_profile.php");
+            }
+
+          }
+        }
+      }else {
+        echo "file-size too big";
+        exit();
+      }
+
+    } else{
+      echo "you had an error";
+      exit();
     }
-  ?>
-</div>
-</body>
-</html>
+  } else{
+    echo "file type not support";
+    exit();
+  }
+
+}
