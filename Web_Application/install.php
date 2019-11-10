@@ -26,7 +26,9 @@ try{
     die("ERROR: Could not connect. " . $e->getMessage());
 }
 
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 /*user table*/
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS users(
@@ -49,10 +51,7 @@ try{
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS uploads(
         id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        titleGallery TEXT NOT NULL,
-        descGallery TEXT NOT NULL,
-        imageFullName VARCHAR(200),
-        orderGallery,
+        imageFullName VARCHAR(500) NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($sql);

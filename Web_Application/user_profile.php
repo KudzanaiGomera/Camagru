@@ -2,13 +2,17 @@
 // Initialize the session
 session_start();
 
+//Report all errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
-    exit;
+    exit();
 }
-
-require_once "upload.php";
+//require_once "upload.php";
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +21,8 @@ require_once "upload.php";
     <meta charset="UTF-8">
     <title>Welcome</title>
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
 </head>
 <body>
   <main>
@@ -26,15 +32,19 @@ require_once "upload.php";
         <h2><?php echo htmlspecialchars($_SESSION["username"]); ?></h2>
         <div class="gallery-container">
           <?php
-          $sql = "SELECT * FROM uploads ORDER BY orderGallery DESC";
-          if (mysqli_stmt_prepare($sql)){
-            echo "SQL statement failed";
+          require_once "upload.php";
+          $sql = "SELECT * FROM uploads ORDER BY created_at DESC";
+          //preparing the statement
+          if(!$stmt = $pdo->prepare($sql)){
+              echo "SQL statement failed";
+          }else{
+            $stmt->execute();
+            while($row = $stmt->fetch()){
+              echo '<a href="#">
+                <div style="background-image:url(image/gallery/'.$row["imageFullName"].');"></div>
+              </a>';
+            };
           }
-          echo '<a href="#">
-            <div></div>
-            <h3>Title</h3>
-            <p>Paragraph</P>
-          </a>';
           ?>
         </div>
       </div>
@@ -43,19 +53,34 @@ require_once "upload.php";
   </main>
 
   <div class="gallery-upload">
-    <form method="POST" action="upload.php" method="post" enctype="multipart/form-data">
+    <form method="POST" action="" enctype="multipart/form-data">
     	<input type="hidden" name="size" value="1000000">
     	<div>
-    	  <input type="file" name="image">
-    	</div>
-    	<div>
-    		<button type="submit" formaction="upload.php">Upload</button>
-        <button type="submit" formaction="camera.php">Camera</button>
+        <input type="file" id="file" name="file">
+        <input type="button" value="Take Snapshot" onClick="take_snapshot()">
+        <button type="submit" name="submit" id="submit" value="submit" formaction="upload.php">UPLOAD</button>
+        <button id="take_snapshots" class="btn btn-success btn-sm " formaction="camera.php">CameraUP</button>
         <button type="submit" formaction="gallery.php">Gallery</button>
         <button type="submit" formaction="logout.php">Sign Out of Your Account</button>
-    	</div>
+      </div>
     </form>
   </div>
 
 </body>
+<script>
+  const fileuploader = document.getElementById('file'),
+        submit = document.getElementById('submit');
+
+  submit.setAttribute('disabled', 'true');
+  fileuploader.addEventListener('change', function() {
+    if (fileuploader.files.length > 0) {
+      submit.removeAttribute('disabled');
+    } else {
+      submit.setAttribute('disabled', 'true');
+
+    }
+
+  });
+</script>
+
 </html>
