@@ -38,15 +38,13 @@ if (isset($_POST['submit']))
 	$fileExt = explode(".", $fileName);
   $fileActualExt = strtolower(end($fileExt));
 
-  $allowed = array("jpg","jpeg", "png");
+  $allowed = array("jpg", "jpeg", "png");
 
-  if (in_array($fileActualExt, $allowed))
-  {
-
-    if ($fileError == 0){
+  if (in_array($fileActualExt, $allowed)){
+		if ($fileError === 0){
       if ($fileSize < 20000000){
-        $imageFullName = $newFileName . "." . uniqid("", true) . "." . $fileExt;
-        $fileDestination = "../images/gallery/" . $imageFullName;
+        $imageFullName = $newFileName . "." . uniqid("", true) . "." . $fileActualExt;
+        $fileDestination = "images/gallery/" . $imageFullName;
 
         if (empty($imageFullName)){
           header("location: user_profile.php");

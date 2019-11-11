@@ -13,7 +13,6 @@ try{
 try{
     $sql = "CREATE DATABASE IF NOT EXISTS camagru";
     $pdo->exec($sql);
-    echo "Database created successfully";
 } catch(PDOException $e){
     die("ERROR: Could not able to execute $sql. " . $e->getMessage());
 }
@@ -41,7 +40,6 @@ try{
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($sql);
-    echo "Table created successfully.";
 } catch(PDOException $e){
     die("ERROR: Could not able to execute $sql. " . $e->getMessage());
 }
@@ -55,19 +53,9 @@ try{
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($sql);
-    echo "Table created successfully.";
 } catch(PDOException $e){
     die("ERROR: Could not able to execute $sql. " . $e->getMessage());
 }
-
-
-/*try{
-    $sql = "INSERT INTO  users (username, password) VALUES ('kudzi', 'kudzanai')";
-    $pdo->exec($sql);
-    //echo "Records inserted successfully.";
-} catch(PDOException $e){
-    die("ERROR: Could not able to execute $sql. " . $e->getMessage());
-}*/
 
 // Close connection
 unset($pdo);

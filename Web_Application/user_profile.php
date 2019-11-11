@@ -12,14 +12,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit();
 }
-//require_once "upload.php";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>User Profile</title>
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
@@ -41,7 +40,18 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             $stmt->execute();
             while($row = $stmt->fetch()){
               echo '<a href="#">
-                <div style="background-image:url(image/gallery/'.$row["imageFullName"].');"></div>
+                <div style="background-image:url(images/gallery/'.$row["imageFullName"].');">
+                <div>
+                <div>
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                <span><strong style="margin-left: -150px; margin-top:80px;">Edit</strong></span>
+                </div>
+                <div>
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span><strong style="margin-right: -150px;">Delete</strong></span>
+                </div>
+                </div>
+                </div>
               </a>';
             };
           }
@@ -57,11 +67,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     	<input type="hidden" name="size" value="1000000">
     	<div>
         <input type="file" id="file" name="file">
-        <input type="button" value="Take Snapshot" onClick="take_snapshot()">
         <button type="submit" name="submit" id="submit" value="submit" formaction="upload.php">UPLOAD</button>
-        <button id="take_snapshots" class="btn btn-success btn-sm " formaction="camera.php">CameraUP</button>
         <button type="submit" formaction="gallery.php">Gallery</button>
         <button type="submit" formaction="logout.php">Sign Out of Your Account</button>
+        <button type="submit" id="startbutton" formaction="camera.php">Camera</button>
+
       </div>
     </form>
   </div>

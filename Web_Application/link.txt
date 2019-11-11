@@ -3,3 +3,5 @@ https://www.youtube.com/watch?v=LXQfEFEfFcM
 https://codewithawa.com/posts/image-upload-using-php-and-mysql-database
 https://stackoverflow.com/questions/9548373/creating-a-user-specific-gallery-area-php
 https://www.youtube.com/watch?v=msO37iodcw8&list=PL0eyrZgxdwhwBToawjm9faF1ixePexft-&index=63
+https://www.youtube.com/watch?v=RHqkW28LowI&list=PLLbte0kDpFKX6oVSjMlFqQ-zkqdZSwxhE&index=3
+https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Taking_still_photos
