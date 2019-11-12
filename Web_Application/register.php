@@ -133,6 +133,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
 
                 // Redirect to login page
+                echo " Please check your email to verify account";
                 header("location: login.php");
             } else{
                 echo "Something went wrong. Please try again later.";

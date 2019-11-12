@@ -16,16 +16,17 @@ if (isset($_POST['vkey'])){
           if($stmt->execute()){
               if($stmt->rowCount() == 1){
                 $update = "UPDATE users SET verified = 1 WHERE vkey = '$vkey' LIMIT 1";
-                if($stmt = $pdo->prepare($sql)){
+                if($stmt = $pdo->prepare($update)){
                     // Attempt to execute the prepared statement
                     if($stmt->execute()){
-                        echo "Your acount has been verified. you may now login."
+                        echo "Your acount has been verified. you may now login.";
+                        header("location: login.php");
                     } else{
                         echo "Oops! Something went wrong. Please try again later.";
                     }
                 }
               } else{
-                  echo "This account is not verified or alraedy verified"
+                  echo "This account is not verified or alraedy verified";
               }
           } else{
               echo "Oops! Something went wrong. Please try again later.";
@@ -35,8 +36,7 @@ if (isset($_POST['vkey'])){
       // Close statement
       unset($stmt);
   }
-
-}else{
+  else{
   die("something went wrong");
 }
 

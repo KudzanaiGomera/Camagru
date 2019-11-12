@@ -5,3 +5,5 @@ https://stackoverflow.com/questions/9548373/creating-a-user-specific-gallery-are
 https://www.youtube.com/watch?v=msO37iodcw8&list=PL0eyrZgxdwhwBToawjm9faF1ixePexft-&index=63
 https://www.youtube.com/watch?v=RHqkW28LowI&list=PLLbte0kDpFKX6oVSjMlFqQ-zkqdZSwxhE&index=3
 https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Taking_still_photos
+https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Taking_still_photos
+https://codewithawa.com/posts/creating-a-comment-and-reply-system-php-and-mysql

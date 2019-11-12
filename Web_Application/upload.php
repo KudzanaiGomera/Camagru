@@ -66,12 +66,7 @@ if (isset($_POST['submit']))
                 if(!$stmt = $pdo->prepare($sql)){
                     echo "SQL statement failed";
                 }else{
-                  // echo "title --> ".$imageTitle. '<br />';
-                  // echo "description --> ".$imageDesc. '<br />';
-                  // echo "fullname --> ".$imageFullName. '<br />';
-                  // echo "order --> ".$setImageOrder . '<br />';
-                  // echo "destination --> " . $fileDestination . '<br>';
-
+              
                   $stmt->execute([$imageFullName]);
 
                   move_uploaded_file($fileTempName, $fileDestination);
