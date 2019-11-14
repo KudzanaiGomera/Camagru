@@ -48,9 +48,40 @@ try{
 
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS uploads(
-        id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        user_id INT(11),
         imageFullName VARCHAR(500) NOT NULL,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    )";
+    $pdo->exec($sql);
+} catch(PDOException $e){
+    die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+}
+
+/*Comments table*/
+
+try{
+    $sql = "CREATE TABLE  IF NOT EXISTS comments(
+        user_id INT (11),
+        imageFullName VARCHAR(500) NOT NULL,
+        comment TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    )";
+    $pdo->exec($sql);
+} catch(PDOException $e){
+    die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+}
+
+/*likes table*/
+
+try{
+    $sql = "CREATE TABLE  IF NOT EXISTS likes(
+        user_id INT(11),
+        imageFullName VARCHAR(500) NOT NULL,
+        liked TINYINT DEFAULT (0),
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id)
     )";
     $pdo->exec($sql);
 } catch(PDOException $e){

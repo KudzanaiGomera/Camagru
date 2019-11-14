@@ -7,3 +7,6 @@ https://www.youtube.com/watch?v=RHqkW28LowI&list=PLLbte0kDpFKX6oVSjMlFqQ-zkqdZSw
 https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Taking_still_photos
 https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Taking_still_photos
 https://codewithawa.com/posts/creating-a-comment-and-reply-system-php-and-mysql
+https://stackoverflow.com/questions/43447555/is-it-right-to-add-a-tag-inside-span-tag
+https://www.youtube.com/watch?v=S-JG1z6Bp3U
+https://www.youtube.com/watch?v=1LmPeHX7RRo

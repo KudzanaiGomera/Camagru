@@ -68,11 +68,21 @@ body{
     margin: 2px;
     opacity: 0.8;
     border-radius: 15px 10px;
+    cursor: pointer;
   }
 
 /** Camera styling**/
 #results {
    padding:20px;
    border:1px solid;
-   background:#ccc; 
+   background:#ccc;
  }
+
+ /*comment section*/
+
+textarea{
+  width: 400px;
+  height: 80px;
+  background-color: white;
+  resize: none;
+}
