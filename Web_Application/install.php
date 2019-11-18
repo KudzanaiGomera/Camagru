@@ -2,7 +2,7 @@
 /* Attempt MySQL server connection. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
 try{
-    $pdo = new PDO("mysql:host=localhost;", "root", "123456");
+    $pdo = new PDO("mysql:host=localhost;", "root", "");
     // Set the PDO error mode to exception
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e){
@@ -18,7 +18,7 @@ try{
 }
 
 try{
-    $pdo = new PDO("mysql:host=localhost;dbname=camagru", "root", "123456");
+    $pdo = new PDO("mysql:host=localhost;dbname=camagru", "root", "");
     // Set the PDO error mode to exception
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e){
@@ -63,7 +63,6 @@ try{
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS comments(
         user_id INT (11),
-        imageFullName VARCHAR(500) NOT NULL,
         comment TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id)
@@ -78,7 +77,6 @@ try{
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS likes(
         user_id INT(11),
-        imageFullName VARCHAR(500) NOT NULL,
         liked TINYINT DEFAULT (0),
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id)

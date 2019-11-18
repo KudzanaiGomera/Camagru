@@ -6,7 +6,7 @@ require_once "install.php";
 server with default setting (user 'root' with no password) */
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '123456');
+define('DB_PASSWORD', '');
 define('DB_NAME', 'camagru');
 
 /* Attempt to connect to MySQL database */
