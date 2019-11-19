@@ -98,6 +98,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </style>
 </head>
 <body>
+  <?php include 'header.php';?>
     <div class="wrapper">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
@@ -119,5 +120,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <p>Forgotten your password? <a href="reset.php">Reset Password</a>.</p>
         </form>
     </div>
+    <?php include 'footer.php' ;?>
 </body>
 </html>

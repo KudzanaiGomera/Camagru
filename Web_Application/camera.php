@@ -23,6 +23,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <?php include 'header.php';?>
     <section class="gallery-links">
       <div class="wrapper">
         <h2><?php echo htmlspecialchars($_SESSION["username"]); ?></h2>
@@ -99,6 +100,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     }
 
 </script>
-
+<?php include 'footer.php' ;?>
 </body>
 </html>

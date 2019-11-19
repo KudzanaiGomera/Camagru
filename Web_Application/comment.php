@@ -1,6 +1,6 @@
 
 <?php
-// session_start();
+session_start();
 
 // Include config file
 require_once "config.php";
@@ -48,6 +48,7 @@ ini_set('display_errors', 1);
   <link rel="stylesheet" type="text/css" href="style.css"></link>
 </head>
 <body>
+	<?php include 'header.php';?>
   <form method="POST" action="comment.php">
     <table>
     <tr><td colspan="2">Comment: </td></tr>
@@ -69,5 +70,6 @@ ini_set('display_errors', 1);
     }
   }
    ?>
+<?php include 'footer.php' ;?>
 </body>
 </html>

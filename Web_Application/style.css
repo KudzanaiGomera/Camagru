@@ -86,3 +86,44 @@ textarea{
   background-color: white;
   resize: none;
 }
+
+/*footer*/
+
+.footer{
+  position: fixed;
+  background-color: deepskyblue;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  color: white;
+  text-align: center;
+  margin-top: 5px auto;
+}
+
+/*nav-bar*/
+
+.topnav{
+  background-color: deepskyblue;
+  color: white;
+  overflow: hidden;
+  width: 100%;
+}
+
+.topnav a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: purple;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}

@@ -24,6 +24,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
 </head>
 <body>
+  <?php include 'header.php';?>
   <main>
 
     <section class="gallery-links">
@@ -40,18 +41,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             $stmt->execute();
             while($row = $stmt->fetch()){
               echo '<a href="#">
-                <div style="background-image:url(images/gallery/'.$row["imageFullName"].');">
-                <div>
-                <div>
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                <span><strong style="margin-left: -150px; margin-top:80px;">Edit</strong></span>
-                </div>
-                <div>
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                <span><strong style="margin-right: -150px;">Delete</strong></span>
-                </div>
-                </div>
-                </div>
+                <div style="background-image:url(images/gallery/'.$row["imageFullName"].');"></div>
+                <br />
+                <button type="button" class="btn btn-default btn-sm" style="colour:white;"><span class="glyphicon glyphicon" formaction="edit.php"></span>Edit</button>
+                <button type="button" class="btn btn-default btn-sm" style="colour:white;" formaction="delete.php"><span class="glyphicon glyphicon"></span>Delete</button>
               </a>';
             };
           }
@@ -75,7 +68,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       </div>
     </form>
   </div>
-
+<?php include 'footer.php' ;?>
 </body>
 <script>
   const fileuploader = document.getElementById('file'),
