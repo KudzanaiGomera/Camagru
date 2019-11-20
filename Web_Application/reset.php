@@ -5,11 +5,77 @@ session_start();
 require_once "config.php";
 
 // Define variables and initialize with empty values
-$new_password = $confirm_password = "";
-$new_password_err = $confirm_password_err = "";
+$new_password = $confirm_password = $new_username = $new_email = "";
+$new_password_err = $confirm_password_err = $new_username_err = $new_email_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+
+  // Validate username
+  if(empty(trim($_POST["new_username"]))){
+      $new_username_err = "Please enter a new_username.";
+  } else{
+      // Prepare a select statement
+      $sql = "UPDATE users SET username = :new_username WHERE id = :id";
+
+      if($stmt = $pdo->prepare($sql)){
+          // Bind variables to the prepared statement as parameters
+          $stmt->bindParam(":new_username", $param_username, PDO::PARAM_STR);
+
+          // Set parameters
+          $param_username = trim($_POST["new_username"]);
+
+          // Attempt to execute the prepared statement
+          if($stmt->execute()){
+              if($stmt->rowCount() == 1){
+                  $new_username_err = "This username is not updated.";
+              } else{
+                  $new_username = trim($_POST["new_username"]);
+              }
+          } else{
+              echo "Oops! Something went wrong. Please try again later.";
+          }
+      }
+
+      // Close statement
+      unset($stmt);
+  }
+
+  // Validate email
+  if(empty(trim($_POST["new_email"]))){
+      $new_email_err = "Please enter your email.";
+  } else{
+      // Prepare a select statement
+      $sql = "UPDATE users SET email = :new_email WHERE id = :id";
+
+      if($stmt = $pdo->prepare($sql)){
+          // Bind variables to the prepared statement as parameters
+          $stmt->bindParam(":new_email", $param_email, PDO::PARAM_STR);
+
+          // Set parameters
+          $param_email = trim($_POST["new_email"]);
+
+          // Attempt to execute the prepared statement
+          if($stmt->execute()){
+              if($stmt->rowCount() == 1){
+                  $new_email_err = "This email is already taken.";
+              } else{
+                  $new_email = trim($_POST["new_email"]);
+              }
+          } else{
+              echo "Oops! Something went wrong. Please try again later.";
+          }
+      }
+
+      // Close statement
+      unset($stmt);
+  }
+
+  //generate Vkey
+  $vkey = md5(time().$new_username);
+
+  echo $vkey;
 
     // Validate new password
     if(empty(trim($_POST["new_password"]))){
@@ -69,6 +135,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <meta charset="UTF-8">
     <title>Reset Password</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; }
@@ -81,6 +148,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <h2>Reset Password</h2>
         <p>Please fill out this form to reset your password.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+          <div class="form-group <?php echo (!empty($new_username_err)) ? 'has-error' : ''; ?>">
+              <label>New Username</label>
+              <input type="text" name="username" class="form-control" value="<?php echo $new_username; ?>">
+              <span class="help-block"><?php echo $new_username_err; ?></span>
+          </div>
+          <div class="form-group <?php echo (!empty($new_email_err)) ? 'has-error' : ''; ?>">
+              <label>Email</label>
+              <input type="email" name="email" class="form-control" value="<?php echo $new_email; ?>">
+              <span class="help-block"><?php echo $new_email_err; ?></span>
+          </div>
             <div class="form-group <?php echo (!empty($new_password_err)) ? 'has-error' : ''; ?>">
                 <label>New Password</label>
                 <input type="password" name="new_password" class="form-control" value="<?php echo $new_password; ?>">
@@ -93,7 +170,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
-                <a class="btn btn-link" href="welcome.php">Cancel</a>
+                <a class="btn btn-link" href="user_profile.php">Cancel</a>
             </div>
         </form>
     </div>

@@ -12,12 +12,14 @@ body{
     text-transform: uppercase;
   }
 
+/*disgn for the img container*/
   .gallery-container{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-content: flex-start;
+    margin: 5px;
   }
 
   .gallery-container a {
@@ -53,13 +55,15 @@ body{
   form{
    width: 50%;
    margin: 20px auto;
+   margin-bottom: 35px;
   }
   form div{
    margin-top: 5px;
+   margin-bottom: 35px;
   }
   button{
     background-color: deepskyblue;
-    padding: 15px 22px;
+    padding: 10px 22px;
     display: inline-block;
     font-size: 12px;
     text-decoration: none;
@@ -76,6 +80,21 @@ body{
    padding:20px;
    border:1px solid;
    background:#ccc;
+ }
+
+ /*button in the gallery*/
+ .btn btn-default btn-sm{
+   background-color: deepskyblue;
+   padding: 15px 22px;
+   display: inline-block;
+   font-size: 12px;
+   text-decoration: none;
+   text-align: center;
+   border: none;
+   margin: 2px;
+   opacity: 0.8;
+   border-radius: 15px 10px;
+   cursor: pointer;
  }
 
  /*comment section*/
@@ -97,7 +116,7 @@ textarea{
   bottom: 0;
   color: white;
   text-align: center;
-  margin-top: 5px auto;
+  margin-top: 35px auto;
 }
 
 /*nav-bar*/
@@ -126,4 +145,12 @@ textarea{
 .topnav a.active {
   background-color: #4CAF50;
   color: white;
+}
+
+.Gallery{
+display:grid;
+margin: 3px;
+float:left;
+flex-direction: row;
+margin-bottom: 35px;
 }

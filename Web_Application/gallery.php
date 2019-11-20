@@ -17,7 +17,7 @@ error_reporting(E_ALL);
     <meta charset="UTF-8">
     <title>Gallery</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
 </head>
@@ -33,41 +33,66 @@ error_reporting(E_ALL);
           //retrieve posts from the database
 
           require_once "upload.php";
-          require_once "like.php";
-          $sql = "SELECT * FROM uploads ORDER BY created_at DESC";
-          //preparing the statement
-          if(!$stmt = $pdo->prepare($sql)){
-              echo "SQL statement failed";
-          }else{
-            $stmt->execute();
-            while($row = $stmt->fetch()){
-              echo '
-                <a href=""><div style="background-image:url(images/gallery/'.$row["imageFullName"].');"></div></a>
-                <a href="like.php"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon-thumbs-up"></span>Like</button></a>
-                <a href="comment.php"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon"></span>Comment</button></a>
-              ';
-
-              $sql = "SELECT * FROM likes WHERE post_id = ".$row['id'] ."";
-              if(!$stmt = $pdo->prepare($sql)){
-                echo "SQL statement failed";
-              }else {
-                // $stmt->execute();
-                while($row = $stmt->fetch()){
-
-                }
-
-                }
-
-            };
+          $page_num = $_GET['pagenum'];
+          if (!$page_num){
+            $page_num = 1;
           }
-          $sql = "SELECT * FROM uploads ORDER BY created_at DESC";
-          if(!$stmt = $pdo->prepare($sql)){
+
+          echo '<a href="logout.php"><button >Logout</button></a>';
+          $i = 0;
+          $nextpage = $page_num+1;
+          $prevpage = $page_num-1;
+
+          try {
+            $amount = 6;
+            $start = ($page_num - 1) * $amount;
+            $sql = "SELECT * FROM uploads LIMIT $start, $amount";
+            if (!$stmt = $pdo->prepare($sql)){
               echo "SQL statement failed";
-          }else{
-            $stmt->execute();
-            while($stmt->{
-                echo $stmt->$row_count;
+            }else {
+              $stmt->execute();
+              $count = $stmt->rowCount();
+              $likes = 0;
+
+              if($page_num >= 2)
+                echo "<a href='gallery.php?pagenum=$prevpage'><-PREV<a/><br/>";
+
+                if($count >= $amount)
+                  echo "<a href='gallery.php?pagenum=$nextpage'>NEXT-><a/><br/>";
+
+                $res = array_reverse($stmt->fetchAll());
+                $i = 0;
+
+                foreach ($res as $image) {
+                  $img = $image['imageFullName'];
+
+                  $sql = "SELECT * FROM uploads WHERE imageFullName ='$img'";
+                  // $stmt = $->prepare($sql);
+                  $stmt->execute();
+                  $l = $stmt->fetchAll();
+
+                  foreach($l as $like){
+                	   $likes = $like['likes'];
+                  }
+
+                      echo '<div class="Gallery"">
+                        <a href=""><div style="background-image:url(images/gallery/'.$img.');"></div>
+                        <a href="like.php"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon-thumbs-up"></span>Like</button></a>
+                        <a href="comment.php"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon"></span>Comment</button></a>
+                      </a></div>'
+                      ;
+
+                      if($i == 2){
+                        echo '<br>';
+                        $i = -1;
+                      }
+                      $i++;
+                }
+                $c = 0;
             }
+          } catch (Exception $e) {
+            echo "ERROR: " . $e->getMessage() . "<br/>";
+          }
           ?>
         </div>
       </div>

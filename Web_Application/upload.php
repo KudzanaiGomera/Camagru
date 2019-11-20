@@ -14,9 +14,6 @@ ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 
-  //echo "<br />We're here!<br />";
-
-
 if (isset($_POST['submit']))
 {
 
@@ -66,7 +63,7 @@ if (isset($_POST['submit']))
                 if(!$stmt = $pdo->prepare($sql)){
                     echo "SQL statement failed";
                 }else{
-              
+
                   $stmt->execute([$imageFullName]);
 
                   move_uploaded_file($fileTempName, $fileDestination);

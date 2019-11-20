@@ -40,7 +40,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
           }else{
             $stmt->execute();
             while($row = $stmt->fetch()){
-              echo '<a href="#">
+              echo '<a href="">
                 <div style="background-image:url(images/gallery/'.$row["imageFullName"].');"></div>
                 <br />
                 <button type="button" class="btn btn-default btn-sm" style="colour:white;"><span class="glyphicon glyphicon" formaction="edit.php"></span>Edit</button>
