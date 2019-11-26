@@ -154,3 +154,42 @@ float:left;
 flex-direction: row;
 margin-bottom: 35px;
 }
+
+/*verify*/
+
+.verify{
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 30px;
+   color: blue;
+}
+
+/*like*/
+
+.posts-wrapper {
+  width: 50%;
+  margin: 20px auto;
+  border: 1px solid #eee;
+}
+.post {
+  width: 90%;
+  margin: 20px auto;
+  padding: 10px 5px 0px 5px;
+  border: 1px solid green;
+}
+.post-info {
+  margin: 10px auto 0px;
+  padding: 5px;
+}
+.fa {
+  font-size: 1.2em;
+}
+.fa-thumbs-down, .fa-thumbs-o-down {
+  transform:rotateY(180deg);
+}
+.logged_in_user {
+  padding: 10px 30px 0px;
+}
+i {
+  color: blue;
+}

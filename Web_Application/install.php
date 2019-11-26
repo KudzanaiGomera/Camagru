@@ -35,8 +35,8 @@ try{
         username VARCHAR(50) NOT NULL UNIQUE,
         password VARCHAR(300) NOT NULL,
         email VARCHAR(50) NOT NULL UNIQUE,
-        vkey VARCHAR(50) NOT NULL,
-        verified TINYINT(1) NOT NULL DEFAULT '0',
+        vkey VARCHAR(250) NOT NULL,
+        user_email_status enum('not verified','verified') NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($sql);
@@ -51,7 +51,6 @@ try{
         id INT(11),
         user_id INT(11),
         imageFullName VARCHAR(500) NOT NULL,
-        likes INT(11),
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id)
     )";
@@ -79,7 +78,8 @@ try{
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS likes(
         user_id INT(11),
-        post_id INT(11),
+        post_id INT(11) UNIQUE,
+        action TINYINT(0) NOT NULL DEFAULT '1',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id)
     )";

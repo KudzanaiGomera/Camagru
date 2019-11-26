@@ -17,9 +17,9 @@ error_reporting(E_ALL);
     <meta charset="UTF-8">
     <title>Gallery</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
   <?php include 'header.php';?>
@@ -33,12 +33,10 @@ error_reporting(E_ALL);
           //retrieve posts from the database
 
           require_once "upload.php";
-          $page_num = $_GET['pagenum'];
+          $page_num = $_POST['pagenum'];
           if (!$page_num){
             $page_num = 1;
           }
-
-          echo '<a href="logout.php"><button >Logout</button></a>';
           $i = 0;
           $nextpage = $page_num+1;
           $prevpage = $page_num-1;
@@ -71,13 +69,9 @@ error_reporting(E_ALL);
                   $stmt->execute();
                   $l = $stmt->fetchAll();
 
-                  foreach($l as $like){
-                	   $likes = $like['likes'];
-                  }
-
                       echo '<div class="Gallery"">
                         <a href=""><div style="background-image:url(images/gallery/'.$img.');"></div>
-                        <a href="like.php"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon-thumbs-up"></span>Like</button></a>
+                        <a href="like.php"><button type="button" class="btn btn-default btn-sm"  name = "like" ><span class="glyphicon glyphicon-thumbs-up"></span>Like</button></a>
                         <a href="comment.php"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon"></span>Comment</button></a>
                       </a></div>'
                       ;

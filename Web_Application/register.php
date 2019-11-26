@@ -72,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //generate Vkey
     $vkey = md5(time().$username);
 
-    echo $vkey;
+    //echo $vkey;
 
     // Validate password
     if(empty(trim($_POST["password"]))){
@@ -132,9 +132,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   echo("Fail");
                 }
 
-                // Redirect to login page
-                echo " Please check your email to verify account";
-                header("location: login.php");
+                // Redirect to verify page
+                 header("location: check_email.php");
             } else{
                 echo "Something went wrong. Please try again later.";
             }

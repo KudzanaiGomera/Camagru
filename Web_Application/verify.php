@@ -1,59 +1,71 @@
 <?php
+session_start();
 
+// Include config file
 require_once "config.php";
-require_once "register.php";
 
-if (isset($_POST['vkey'])){
-  //process verification
-  $vkey = $GET['vkey'];
+ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
 
-      // Prepare a select statement
+	$message = '';
 
-    $sql = "SELECT verified,vkey FROM users WHERE verified  = 0 AND vkey = :vkey LIMIT 1";
+if(isset($_GET['vkey']))
+{
+ $query = "SELECT * FROM users WHERE vkey = :vkey";
+ $statement = $pdo->prepare($query);
+ $statement->execute(
+  array(
+   ':vkey'   => $_GET['vkey']
+  )
+ );
+ $no_of_row = $statement->rowCount();
 
-      if($stmt = $pdo->prepare($sql)){
-          // Attempt to execute the prepared statement
-          if($stmt->execute()){
-              if($stmt->rowCount() == 1){
-                $update = "UPDATE users SET verified = 1 WHERE vkey = '$vkey' LIMIT 1";
-                if($stmt = $pdo->prepare($update)){
-                    // Attempt to execute the prepared statement
-                    if($stmt->execute()){
-                        echo "Your acount has been verified. you may now login.";
-                        header("location: login.php");
-                    } else{
-                        echo "Oops! Something went wrong. Please try again later.";
-                    }
-                }
-              } else{
-                  echo "This account is not verified or alraedy verified";
-              }
-          } else{
-              echo "Oops! Something went wrong. Please try again later.";
-          }
-      }
-
-      // Close statement
-      unset($stmt);
+ if($no_of_row > 0)
+ {
+  $result = $statement->fetchAll();
+  foreach($result as $row)
+  {
+	   	if($row['user_email_status'] == 'not verified')
+	   {
+	    $update_query = "UPDATE users SET user_email_status = 'verified' WHERE id = '".$row['id']."'";
+	    $statement = $pdo->prepare($update_query);
+	    $statement->execute();
+	    $sub_result = $statement->rowCount();
+	    if(isset($sub_result))
+	    {
+	     $message = '<label class="text-success">Your email address was successfully verified <br />You can login here - <a href="login.php">login</a></label>';
+			}
+	   }
+	   else
+	   {
+	    header('location: login.php');
+		 }
   }
-  else{
-  die("something went wrong");
+ }
+ else
+ {
+  $message = '<label class="text-danger">Invalid Link</label>';
+ }
 }
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Verify</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
-    </style>
-</head>
-<body>
+<html>
+ <head>
+  <title>Email Verification</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+ <body>
+<?php include 'header.php';?>
+  <div class="container">
+   <h1 align="center">PHP Register Login Script with Email Verification</h1>
 
-</body>
+   <h3><?php echo $message; ?></h3>
+
+  </div>
+<?php include 'footer.php' ;?>
+ </body>
+
 </html>
