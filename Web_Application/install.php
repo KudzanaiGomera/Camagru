@@ -79,7 +79,7 @@ try{
     $sql = "CREATE TABLE  IF NOT EXISTS likes(
         user_id INT(11),
         post_id INT(11) UNIQUE,
-        action TINYINT(0) NOT NULL DEFAULT '1',
+        action TINYINT(1) NOT NULL DEFAULT '0',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id)
     )";
