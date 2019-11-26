@@ -33,7 +33,7 @@ error_reporting(E_ALL);
           //retrieve posts from the database
 
           require_once "upload.php";
-          $page_num = $_POST['pagenum'];
+          $page_num = $_GET['pagenum'];
           if (!$page_num){
             $page_num = 1;
           }
@@ -44,7 +44,7 @@ error_reporting(E_ALL);
           try {
             $amount = 6;
             $start = ($page_num - 1) * $amount;
-            $sql = "SELECT * FROM uploads LIMIT $start, $amount";
+            $sql = "SELECT * FROM uploads ORDER BY created_at DESC LIMIT $start, $amount";
             if (!$stmt = $pdo->prepare($sql)){
               echo "SQL statement failed";
             }else {
@@ -58,20 +58,21 @@ error_reporting(E_ALL);
                 if($count >= $amount)
                   echo "<a href='gallery.php?pagenum=$nextpage'>NEXT-><a/><br/>";
 
-                $res = array_reverse($stmt->fetchAll());
+                $res = $stmt->fetchAll();
                 $i = 0;
 
                 foreach ($res as $image) {
                   $img = $image['imageFullName'];
+                  $id = $image['id'];
 
-                  $sql = "SELECT * FROM uploads WHERE imageFullName ='$img'";
-                  // $stmt = $->prepare($sql);
-                  $stmt->execute();
-                  $l = $stmt->fetchAll();
+                  // $sql = "SELECT * FROM uploads WHERE imageFullName ='$img'";
+                  // $stmt = $pdo->prepare($sql);
+                  // $stmt->execute();
+                  // $l = $stmt->fetchAll();
 
                       echo '<div class="Gallery"">
                         <a href=""><div style="background-image:url(images/gallery/'.$img.');"></div>
-                        <a href="like.php"><button type="button" class="btn btn-default btn-sm"  name = "like" ><span class="glyphicon glyphicon-thumbs-up"></span>Like</button></a>
+                        <a href="like.php?id='.$id.'"><button type="button" class="btn btn-default btn-sm"  name = "like" ><span class="glyphicon glyphicon-thumbs-up"></span>Like</button></a>
                         <a href="comment.php"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon"></span>Comment</button></a>
                       </a></div>'
                       ;

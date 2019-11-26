@@ -15,6 +15,7 @@ ini_set('display_errors', 1);
   error_reporting(E_ALL);
 
   //echo "<br />We're here!<br />";
+$user_id = $_SESSION['id'];
 
 if(isset($_POST['submit'])){
 
@@ -42,13 +43,13 @@ if(isset($_POST['submit'])){
           $number_of_rows = $stmt->fetchColumn();
           $setImageOrder = $number_of_rows + 1;
 
-          $sql = "INSERT INTO uploads (imageFullName) VALUES (?)";
+          $sql = "INSERT INTO uploads (user_id,imageFullName) VALUES (?,?)";
           if(!$stmt = $pdo->prepare($sql)){
               echo "SQL statement failed";
           }else{
 
-            $stmt->execute([$fileName]);
-            
+            $stmt->execute([$user_id, $fileName]);
+
              header("location: user_profile.php?upload=success");
           }
         }

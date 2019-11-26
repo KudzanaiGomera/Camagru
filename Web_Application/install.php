@@ -48,7 +48,7 @@ try{
 
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS uploads(
-        id INT(11),
+        id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
         user_id INT(11),
         imageFullName VARCHAR(500) NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -63,10 +63,11 @@ try{
 
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS comments(
-        user_id INT (11),
+        id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        user_id VARCHAR(50),
         comment TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id) REFERENCES users(username)
     )";
     $pdo->exec($sql);
 } catch(PDOException $e){
@@ -77,11 +78,13 @@ try{
 
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS likes(
+        id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
         user_id INT(11),
         post_id INT(11) UNIQUE,
         action TINYINT(1) NOT NULL DEFAULT '0',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (post_id) REFERENCES uploads(id)
     )";
     $pdo->exec($sql);
 } catch(PDOException $e){

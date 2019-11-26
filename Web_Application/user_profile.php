@@ -33,7 +33,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <div class="gallery-container">
           <?php
           require_once "upload.php";
-          $sql = "SELECT * FROM uploads ORDER BY created_at DESC";
+          $sql = "SELECT * FROM uploads WHERE user_id= $user_id ORDER BY created_at DESC";
           //preparing the statement
           if(!$stmt = $pdo->prepare($sql)){
               echo "SQL statement failed";

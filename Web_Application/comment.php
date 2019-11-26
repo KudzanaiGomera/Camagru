@@ -10,6 +10,7 @@ ini_set('display_errors', 1);
 	error_reporting(E_ALL);
 
   //new code
+$user_id = $_SESSION['username'];
 
   if(isset($_POST['submit'])){
 
@@ -22,11 +23,11 @@ ini_set('display_errors', 1);
             echo "SQL statement failed";
         }else{
           if($stmt->execute()){
-            $sql = "INSERT INTO comments (comment) VALUES (?)";
+            $sql = "INSERT INTO comments (user_id,comment) VALUES (?,?)";
             if(!$stmt = $pdo->prepare($sql)){
                 echo "SQL statement failed";
             }else{
-              $stmt->execute([$comment]);
+              $stmt->execute([$user_id,$comment]);
 
                header("location: comment.php?comment=success");
             }
@@ -65,8 +66,8 @@ ini_set('display_errors', 1);
     $stmt->execute();
     while($row = $stmt->fetch()){
       $comment = $row['comment'];
-    //  $dellink="<a href=\"delete.php? user_id=" . $user_id . " \">Delete</a>";
-      echo $comment . '<br />' . '<br />'; //.$dellink . '<br />';
+			echo $user_id . '@: ';
+			echo $comment . '<br />' . '<br />';
     }
   }
    ?>

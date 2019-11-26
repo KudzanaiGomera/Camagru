@@ -9,55 +9,36 @@ if(session_status() == PHP_SESSION_NONE){
 
 
 //error handling
-ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
-  if (isset($_GET['like'])){
-    $query = "SELECT * FROM likes WHERE user_id = $user_id AND post_id = $post_id";
-    $statement = $pdo->prepare($query);
-    $statement->execute(
-      array(
-       ':post_id'   => $_GET['post_id']
-      )
-    );
-    $no_of_row = $statement->rowCount();
-    if($no_of_row > 0)
-    {
-     $result = $statement->fetchAll();
-     foreach($result as $row)
-     {
-         if($row['action'] == '0')
-        {
-         $update_query = "UPDATE likes SET action = 1 WHERE post_id = '".$row['post_id']."'";
-         $statement = $pdo->prepare($update_query);
-         $statement->execute();
-         $sub_result = $statement->rowCount();
-         if(isset($sub_result))
-         {
-          echo "post has been liked";
-         }
-        }
-        else
-        {
-          $update_query = "UPDATE likes SET action = 0 WHERE post_id = '".$row['post_id']."'";
-          $statement = $pdo->prepare($update_query);
-          $statement->execute();
-          $sub_result = $statement->rowCount();
-          if(isset($sub_result))
-          {
-           echo "post has been disliked";
-          }
-
-        }
-     }
-    }
-    else
-    {
-     echo "invalid action";
-    }
-}
-?>
-
+// ini_set('display_errors', 1);
+// 	ini_set('display_startup_errors', 1);
+// 	error_reporting(E_ALL);
+//
+// $user_id = $_SESSION['id'];
+// $post_id = $_GET['id'];
+//
+// $sql = "SELECT * FROM uploads WHERE post_id = $post_id";
+// if(!$stmt = $pdo->prepare($sql)){
+//     echo "SQL statement failed";
+// }else{
+//   $stmt->execute();
+//   while($row = $stmt->fetch()){
+//     $post_id = $row['id'];
+//   }
+// }
+//
+//   try {
+//       $stmt = $pdo->prepare("INSERT INTO likes (user_id, post_id, action) VALUES (?, ?, 1) ON DUPLICATE KEY UPDATE");
+//       $stmt->execute([$post_id, $user_id]);
+//     } catch (\PDOException $e) {
+//       if ((int) $e->getCode() === 23000){
+//        $stm2 = $db_conn->prepare("DELETE FROM likes WHERE post_id = ? AND user_id = ?");
+//        $stm2->execute([$post_id, $user_id]);
+//     }else {
+//         $error = true;
+//     }
+//   }
+// ?>
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,4 +55,4 @@ ini_set('display_errors', 1);
   </form>
 
 </body>
-</html>
+</html> -->
