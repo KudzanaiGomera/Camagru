@@ -1,72 +1,25 @@
 <?php
+ require_once "config.php";
 
-require_once "config.php";
-
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: user_profile.php");
-    exit;
+//session start
+if(session_status() == PHP_SESSION_NONE){
+  session_start();
 }
 
-if (isset($_POST['delete'])) {
-       if ($_POST['delete'] == "Delete Account") {
+// // error handling
+ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
 
-           $login = $_POST['login'];
-           $passwd = hash("whirlpool", $_POST['old_passwd']);
+$user_id = $_SESSION['id'];
+echo $user_id;
 
-           $sql = "SELECT * FROM users WHERE id = '$login'";
-           //preparing the statement
-           if(!$stmt = $pdo->prepare($sql)){
-               echo "SQL statement failed";
-           }else{
-             $stmt->execute();
-             while($row = $stmt->fetch()){
-               if ($row) {
-                   if ($row['password'] === $passwd) {
-                       $sql = "DELETE FROM users WHERE id = '$login'";
-                       //preparing the statement
-                       if(!$stmt = $pdo->prepare($sql)){
-                           echo "SQL statement failed";
-                       }else{
-                         $stmt->execute();
-                         while($row = $stmt->fetch()){
-                           $_SESSION['loggued_on_user'] = "";
-                           header("location: register.php");
-                         };
-                       }
-                   } else {
-                       echo "<h3 style='color: red'>Wrong password</h3>";
-                   }
-               } else {
-                   echo "<h3 style='color: red'>Wrong login</h3>";
-               }
-             };
-           }
-       }
-   }
+// try {
+//     $stmt = $pdo->prepare("DELETE FROM users WHERE id = '$user_id'");
+//     $stmt->execute([$user_id]);
+//     header("location: register.php?delete=success");
+//   } catch (\PDOException $e) {
+//       die("Cannot try" . $e->getMessage());
+//   }
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
-</head>
-<body>
-  <?php include 'header.php';?>
-<div class="form">
-   <form method="POST" action="">
-       <fieldset>
-           <legend>Delete account</legend>
-           <input type="text" name="login" placeholder="Login" />
-           <input type="password" name="old_passwd" placeholder="Old Password" />
-           <input type="password" name="new_passwd" placeholder="New Password" />
-       </fieldset>
-       <input type="submit" name="submit" formaction=modify.php" value="Modify" />
-       <input type="submit" name="delete" value="Delete Account" />
-   </form>
-</div>
-</body>
-</html>

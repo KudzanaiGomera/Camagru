@@ -6,6 +6,11 @@ require_once "config.php";
 $username = $password = $confirm_password = $email = "";
 $username_err = $password_err = $confirm_password_err = $email_err = "";
 
+// Validate password strength
+$uppercase = preg_match('@[A-Z]@', empty($_POST["password"]) ? '' : $_POST["password"]);
+$lowercase = preg_match('@[a-z]@', empty($_POST["password"]) ? '' : $_POST["password"]);
+$number    = preg_match('@[0-9]@', empty($_POST["password"]) ? '' : $_POST["password"]);
+
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -77,8 +82,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate password
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter a password.";
-    } elseif(strlen(trim($_POST["password"])) < 6){
-        $password_err = "Password must have atleast 6 characters.";
+        // Validate password strength
+    } elseif(!$uppercase || !$lowercase || !$number || strlen(trim($_POST["password"])) < 6){
+        $password_err = "Password must have atleast 8 characters in length and should include at least one upper case letter, one number.";
     } else{
         $password = trim($_POST["password"]);
     }

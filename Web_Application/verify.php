@@ -60,7 +60,7 @@ if(isset($_GET['vkey']))
  <body>
 <?php include 'header.php';?>
   <div class="container">
-   <h1 align="center">PHP Register Login Script with Email Verification</h1>
+   <h1 align="center">Email Verification</h1>
 
    <h3><?php echo $message; ?></h3>
 

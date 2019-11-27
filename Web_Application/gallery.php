@@ -3,8 +3,7 @@
 // Initialize the session
 session_start();
 
-require_once "upload.php";
-require_once "like.php";
+require_once "config.php";
 //Report all errors
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -17,12 +16,13 @@ error_reporting(E_ALL);
     <meta charset="UTF-8">
     <title>Gallery</title>
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-  <?php include 'header.php';?>
+<?php include 'header.php' ;?>
   <main>
 
     <section class="gallery-links">
@@ -31,9 +31,7 @@ error_reporting(E_ALL);
         <div class="gallery-container">
           <?php
           //retrieve posts from the database
-
-          require_once "upload.php";
-          $page_num = $_GET['pagenum'];
+          $page_num = empty($_GET['pagenum']) ? '' : $_GET['pagenum'];
           if (!$page_num){
             $page_num = 1;
           }
@@ -42,7 +40,7 @@ error_reporting(E_ALL);
           $prevpage = $page_num-1;
 
           try {
-            $amount = 6;
+            $amount = 7;
             $start = ($page_num - 1) * $amount;
             $sql = "SELECT * FROM uploads ORDER BY created_at DESC LIMIT $start, $amount";
             if (!$stmt = $pdo->prepare($sql)){
@@ -53,26 +51,22 @@ error_reporting(E_ALL);
               $likes = 0;
 
               if($page_num >= 2)
-                echo "<a href='gallery.php?pagenum=$prevpage'><-PREV<a/><br/>";
+                echo "<a href='gallery.php?pagenum=$prevpage'><button type='button' class='btn btn-default btn-sm' ><span class='glyphicon glyphicon'></span>PREV</button><a/><br/>";
 
                 if($count >= $amount)
-                  echo "<a href='gallery.php?pagenum=$nextpage'>NEXT-><a/><br/>";
+                  echo "<a href='gallery.php?pagenum=$nextpage'><button type='button' class='btn btn-default btn-sm' ><span class='glyphicon glyphicon'></span>NEXT</button><a/><br/>";
 
                 $res = $stmt->fetchAll();
                 $i = 0;
 
                 foreach ($res as $image) {
                   $img = $image['imageFullName'];
-                  $id = $image['id'];
-
-                  // $sql = "SELECT * FROM uploads WHERE imageFullName ='$img'";
-                  // $stmt = $pdo->prepare($sql);
-                  // $stmt->execute();
-                  // $l = $stmt->fetchAll();
+                  $post_id = $image['id'];
+                  $user_id = empty($_SESSION['id']) ? '' : $_SESSION['id'];
 
                       echo '<div class="Gallery"">
                         <a href=""><div style="background-image:url(images/gallery/'.$img.');"></div>
-                        <a href="like.php?id='.$id.'"><button type="button" class="btn btn-default btn-sm"  name = "like" ><span class="glyphicon glyphicon-thumbs-up"></span>Like</button></a>
+                        <a href="like.php?post_id='.$post_id.'"><button type="button" class="btn btn-default btn-sm"  name = "like" ><span class="glyphicon glyphicon-thumbs-up"></span>Like</button></a>
                         <a href="comment.php"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon"></span>Comment</button></a>
                       </a></div>'
                       ;
@@ -94,52 +88,13 @@ error_reporting(E_ALL);
     <section>
 
   </main>
-  <!-- Add Jquery to page -->
-  <script src="jquery.min.js"></script>
-  <script>
-
-  	$(document).ready(function(){
-  		// when the user clicks on like
-  		$('.like').on('click', function(){
-  			var postid = $(this).data('id');
-  			    $post = $(this);
-
-  			$.ajax({
-  				url: 'index.php',
-  				type: 'post',
-  				data: {
-  					'liked': 1,
-  					'postid': postid
-  				},
-  				success: function(response){
-  					$post.parent().find('span.likes_count').text(response + " likes");
-  					$post.addClass('hide');
-  					$post.siblings().removeClass('hide');
-  				}
-  			});
-  		});
-
-  		// when the user clicks on unlike
-  		$('.unlike').on('click', function(){
-  			var postid = $(this).data('id');
-  		    $post = $(this);
-
-  			$.ajax({
-  				url: 'index.php',
-  				type: 'post',
-  				data: {
-  					'unliked': 1,
-  					'postid': postid
-  				},
-  				success: function(response){
-  					$post.parent().find('span.likes_count').text(response + " likes");
-  					$post.addClass('hide');
-  					$post.siblings().removeClass('hide');
-          }
-      });
-    });
-  });
-</script>
 <?php include 'footer.php' ;?>
+<script>
+$("button").click(function(){
+  $("button").removeClass("active");
+  $(this).addClass("active");
+  console.log("hello");
+});
+</script>
 </body>
 </html>

@@ -27,34 +27,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <section class="gallery-links">
       <div class="wrapper">
         <h2><?php echo htmlspecialchars($_SESSION["username"]); ?></h2>
-        <div class="gallery-container">
-          <?php
-          require_once "storeImage.php";
-          $sql = "SELECT * FROM uploads ORDER BY created_at DESC";
-          //preparing the statement
-          if(!$stmt = $pdo->prepare($sql)){
-              echo "SQL statement failed";
-          }else{
-            $stmt->execute();
-            while($row = $stmt->fetch()){
-              echo '<a href="#">
-                <div style="background-image:url(images/gallery/'.$row["imageFullName"].');">
-                <div>
-                <div>
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                <span><strong style="margin-left: -150px; margin-top:80px;">Edit</strong></span>
-                </div>
-                <div>
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                <span><strong style="margin-right: -150px;">Delete</strong></span>
-                </div>
-                </div>
-                </div>
-              </a>';
-            };
-          }
-          ?>
-        </div>
       </div>
     <section>
 

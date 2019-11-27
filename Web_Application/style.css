@@ -193,3 +193,8 @@ margin-bottom: 35px;
 i {
   color: blue;
 }
+
+/*change button click*/
+.active {
+  background-color: green !important;
+}
