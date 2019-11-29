@@ -17,3 +17,4 @@ https://www.youtube.com/watch?v=Iy5KH8tHsrA
 https://www.youtube.com/watch?v=xaYLCgzQP58
 https://www.youtube.com/watch?v=wUkKCMEYj9M
 https://stackoverflow.com/questions/3876299/merging-two-images-with-php
+https://stackoverflow.com/questions/3876299/merging-two-images-with-php

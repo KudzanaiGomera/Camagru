@@ -1,5 +1,7 @@
 <?php
 // Initialize the session
+
+// $_SESSION["username"] = NULL;
 session_start();
 
 require_once('config.php');
@@ -9,7 +11,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
     header("location: login.php");
     exit();
 }

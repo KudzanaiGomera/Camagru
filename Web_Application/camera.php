@@ -45,6 +45,30 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <div class="col-md-6">
                 <div id="results">Your captured image will appear here...</div>
             </div>
+            <div class="stickers">
+              <?php
+                   $files = glob("stickers/*.*");
+                   for ($i=0; $i<count($files); $i++)
+                    {
+                      $image = $files[$i];
+                      $supported_file = array(
+                              'gif',
+                              'jpg',
+                              'jpeg',
+                              'png'
+                       );
+
+                       $ext = strtolower(pathinfo($image, PATHINFO_EXTENSION));
+                       if (in_array($ext, $supported_file)) {
+                          // echo basename($image)."<br />"; // show only image name if you want to show full path then use this code // echo $image."<br />";
+                           echo '<a href=""><img src="'.$image .'" alt="Random image" style="width:50px;height:60px;float:left;display:inline-bl
+                           o";/></a>'."<br /><br />";
+                          } else {
+                              continue;
+                          }
+                        }
+                     ?>
+            </div>
             <div class="col-md-12 text-center">
                 <br/>
                 <button type="submit" name="submit" id="submit" value="submit" formaction="storeImage.php">Submit</button>

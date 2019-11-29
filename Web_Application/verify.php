@@ -26,6 +26,7 @@ if(isset($_GET['vkey']))
   $result = $statement->fetchAll();
   foreach($result as $row)
   {
+			$_SESSION["username"] = $row['username'];
 	   	if($row['user_email_status'] == 'not verified')
 	   {
 	    $update_query = "UPDATE users SET user_email_status = 'verified' WHERE id = '".$row['id']."'";
