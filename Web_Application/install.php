@@ -67,7 +67,7 @@ try{
         user_id VARCHAR(50),
         comment TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users(username)
+        FOREIGN KEY (user_id) REFERENCES users(username) ON UPDATE CASCADE
     )";
     $pdo->exec($sql);
 } catch(PDOException $e){

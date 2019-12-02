@@ -77,9 +77,11 @@ body{
 
 /** Camera styling**/
 #results {
-   padding:20px;
+   padding:0px;
    border:1px solid;
+   border-color: deepskyblue;
    background:#ccc;
+   overflow: hidden;
  }
 
  /*button in the gallery*/
@@ -197,4 +199,10 @@ i {
 /*change button click*/
 .active {
   background-color: green !important;
+}
+
+.cover{
+  padding: 10px;
+  padding-right: 100px;
+  border-color: deepskyblue;
 }

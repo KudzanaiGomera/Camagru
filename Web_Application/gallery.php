@@ -62,12 +62,13 @@ error_reporting(E_ALL);
                 foreach ($res as $image) {
                   $img = $image['imageFullName'];
                   $post_id = $image['id'];
-                  $user_id = empty($_SESSION['id']) ? '' : $_SESSION['id'];
+                  $user_id = empty($_SESSION['username']) ? '' : $_SESSION['username'];
+
 
                       echo '<div class="Gallery"">
                         <a href=""><div style="background-image:url(images/gallery/'.$img.');"></div>
                         <a href="like.php?post_id='.$post_id.'"><button type="button" class="btn btn-default btn-sm"  name = "like" ><span class="glyphicon glyphicon-thumbs-up"></span>Like</button></a>
-                        <a href="comment.php"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon"></span>Comment</button></a>
+                        <a href="comment.php?user_id='.$user_id.'"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon"></span>Comment</button></a>
                       </a></div>'
                       ;
 

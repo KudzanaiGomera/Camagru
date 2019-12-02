@@ -14,7 +14,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 $user_id = $_SESSION['id'];
-echo $user_id;
 
 // Define variables and initialize with empty values
 $new_username = $new_password = $confirm_password = $new_email = "";

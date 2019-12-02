@@ -43,32 +43,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <input type="hidden" name="image" class="image-tag">
             </div>
             <div class="col-md-6">
-                <div id="results">Your captured image will appear here...</div>
+                <div class="drop" ondragover="allowDrop(event)" ondrop="drop(event)" id="results" width="500" height = "400" style="border:solid 1px #000000;">Your captured image will appear here...
+                </div>
             </div>
-            <div class="stickers">
-              <?php
-                   $files = glob("stickers/*.*");
-                   for ($i=0; $i<count($files); $i++)
-                    {
-                      $image = $files[$i];
-                      $supported_file = array(
-                              'gif',
-                              'jpg',
-                              'jpeg',
-                              'png'
-                       );
-
-                       $ext = strtolower(pathinfo($image, PATHINFO_EXTENSION));
-                       if (in_array($ext, $supported_file)) {
-                          // echo basename($image)."<br />"; // show only image name if you want to show full path then use this code // echo $image."<br />";
-                           echo '<a href=""><img src="'.$image .'" alt="Random image" style="width:50px;height:60px;float:left;display:inline-bl
-                           o";/></a>'."<br /><br />";
-                          } else {
-                              continue;
-                          }
-                        }
-                     ?>
-            </div>
+            <div><img src="stickers/garfield.png" ondragstart="dragStart(event)" id="dragelement" style= " opacity: 200; width:50px;height:60px;float:left;display:inline-block";></div><br /><br />
+            <div><img src="stickers/angry.png" ondragstart="dragStart(event)" id="dragelement" style="width:50px;height:60px;float:left;display:inline-block";></div><br /><br />
+            <div><img src="stickers/ok.png" ondragstart="dragStart(event)" id="dragelement" style="width:50px;height:60px;float:left;display:inline-block";></div><br /><br />
+            <div><img src="stickers/camera.png" ondragstart="dragStart(event)" id="dragelement" style="width:50px;height:60px;float:left;display:inline-block";></div><br /><br />
             <div class="col-md-12 text-center">
                 <br/>
                 <button type="submit" name="submit" id="submit" value="submit" formaction="storeImage.php">Submit</button>
@@ -79,6 +60,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <!-- Configure a few settings and attach camera -->
 <script language="JavaScript">
+var id;
     Webcam.set({
         width: 490,
         height: 390,
@@ -91,10 +73,22 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     function take_snapshot() {
         Webcam.snap( function(data_uri) {
             $(".image-tag").val(data_uri);
-            document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
+            document.getElementById("results").innerHTML = '<img src="'+data_uri+'"/>';
         } );
     }
 
+    function allowDrop(ev){
+      ev.preventDefault();
+    }
+
+    function dragStart(ev)
+    {
+      id=ev.target.id;
+    }
+    function drop(ev)
+    {
+      ev.target.append(document.getElementById(id));
+    }
 </script>
 <?php include 'footer.php' ;?>
 </body>

@@ -18,7 +18,8 @@ ini_set('display_errors', 1);
 
 
   //new code
-$user_id = empty($_SESSION['username']) ? '' : $_SESSION['username'];
+$user_id = empty($_POST['user_id']) ? '' : $_POST['user_id'];
+echo $user_id;
 
   if(isset($_POST['submit'])){
 
@@ -36,6 +37,24 @@ $user_id = empty($_SESSION['username']) ? '' : $_SESSION['username'];
                 echo "SQL statement failed";
             }else{
               $stmt->execute([$user_id,$comment]);
+
+							//Send Email
+							$to = $email;
+							$subject = "Comment";
+							$message =  "Someone commented on you post";
+							$headers = "From: $user_id \r\n";
+							$headers .= "MIME-Version: 1.0" . "\r\n";
+							$headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
+
+
+							if (mail($to,$subject,$message,$headers))
+							{
+								echo ("success");
+							}
+							else {
+								echo("Fail");
+							}
+
 
                header("location: comment.php?comment=success");
             }
