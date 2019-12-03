@@ -67,7 +67,7 @@ try{
         user_id VARCHAR(50),
         comment TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users(username) ON UPDATE CASCADE
+        FOREIGN KEY (user_id) REFERENCES users(username)
     )";
     $pdo->exec($sql);
 } catch(PDOException $e){
@@ -85,6 +85,21 @@ try{
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id),
         FOREIGN KEY (post_id) REFERENCES uploads(id)
+    )";
+    $pdo->exec($sql);
+} catch(PDOException $e){
+    die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+}
+
+/*notification*/
+
+try{
+    $sql = "CREATE TABLE  IF NOT EXISTS notification(
+        id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        user_id INT(11),
+        action TINYINT(1) NOT NULL DEFAULT '0',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id)
     )";
     $pdo->exec($sql);
 } catch(PDOException $e){

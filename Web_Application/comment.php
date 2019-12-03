@@ -18,8 +18,28 @@ ini_set('display_errors', 1);
 
 
   //new code
-$user_id = empty($_POST['user_id']) ? '' : $_POST['user_id'];
-echo $user_id;
+$notification = empty($_POST['notification'])? '': $_POST['notification'];
+$user_id = empty(($_SESSION['username']))? '': ($_SESSION['username']);
+$post_id = empty(intval($_GET['post_id']))? '':intval($_GET['post_id']);
+
+if($stmt = $pdo->prepare($sql = "SELECT * FROM uploads WHERE id = $post_id")){
+	$stmt->execute();
+	while ($row= $stmt->fetch()){
+		$id = $row['user_id'];
+	}
+}
+
+echo "user from the table : ".$id.'<br>';
+
+if($stmt = $pdo->prepare($sql = "SELECT * FROM users WHERE id = $id")){
+	$stmt->execute();
+
+	while ($row= $stmt->fetch()){
+		$email = $row['email'];
+	}
+}
+echo "email of a differ user : ".$email;
+
 
   if(isset($_POST['submit'])){
 
@@ -39,24 +59,24 @@ echo $user_id;
               $stmt->execute([$user_id,$comment]);
 
 							//Send Email
-							$to = $email;
-							$subject = "Comment";
-							$message =  "Someone commented on you post";
-							$headers = "From: $user_id \r\n";
-							$headers .= "MIME-Version: 1.0" . "\r\n";
-							$headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
+							if($notification == 1){
+								$to = $email;
+								$subject = "Comment";
+								$message =  "Someone commented on your post";
+								$headers = "From: $user_id \r\n";
+								$headers .= "MIME-Version: 1.0" . "\r\n";
+								$headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
 
-
-							if (mail($to,$subject,$message,$headers))
-							{
-								echo ("success");
+								if (mail($to,$subject,$message,$headers))
+								{
+									echo ("success");
+								}
+								else {
+									echo("Fail");
+								}
 							}
-							else {
-								echo("Fail");
-							}
 
-
-               header("location: comment.php?comment=success");
+               header("location: gallery.php?");
             }
           }
         }
@@ -77,7 +97,7 @@ echo $user_id;
 </head>
 <body>
 	<?php include 'header.php';?>
-  <form method="POST" action="comment.php">
+  <form method="POST" action="">
     <table>
     <tr><td colspan="2">Comment: </td></tr>
     <tr><td colspan="2"><textarea name="comment"></textarea></td></tr>

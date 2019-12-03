@@ -104,6 +104,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
         <button type="submit" formaction="logout.php">Sign Out of Your Account</button>
         <button type="submit" id="startbutton" formaction="camera.php">Camera</button>
         <button type="submit" formaction="delete_account.php">Touch and Perish</button>
+        <button type="submit" name="notification" formaction="notification.php">Notification</button>
       </div>
     </form>
   </div>

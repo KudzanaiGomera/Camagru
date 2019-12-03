@@ -31,34 +31,6 @@ if(isset($_POST['submit'])){
 
     $file = $folderPath . $fileName;
     file_put_contents($file, $image_base64);
-
-    // function get_sticker1(){
-    // $d = imagecreatefromjpeg('/'.$_SESSION['image']);
-    //     $s = imagecreatefrompng('/stickers/garfield.png');
-    //     imagealphablending($d,false);
-    //     imagesavealpha($d,true);
-    //     imagecopymerge($d,$s , 10 , 9, 0,0,81,86,100);
-    //     $store = uniqid().".jpg";
-    //     imagepng($d,'../Camagru/images/gallery'.$store);
-    //     pic_insert($store);
-    //     imagedestroy($d);
-    //     imagedestroy($s);
-    //     $location = $_SESSION['image'];
-    // }
-
-    // if(isset($_POST['sticker1'])){
-    //   get_sticker1();
-    // }
-    // if(isset($_POST['sticker2'])){
-    //   get_sticker2();
-    // }
-    // if(isset($_POST['sticker3'])){
-    //   get_sticker3();
-    // }
-    // if(isset($_POST['sticker4'])){
-    //   get_sticker4();
-    // }
-
     $sql = "SELECT * FROM uploads";
     try {
       //preparing the statement
@@ -89,3 +61,33 @@ if(isset($_POST['submit'])){
   }
 
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Merge</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <?php include 'header.php';?>
+    <section class="gallery-links">
+      <div class="wrapper">
+        <h2><?php echo htmlspecialchars($_SESSION["username"]); ?></h2>
+      </div>
+    <section>
+
+<div class="container">
+    <h1 class="text-center">Camera</h1>
+
+    <form method="POST" action="" enctype="multipart/form-data">
+        <button type="submit" name="angry"><img src="stickers/garfield.png" style= " opacity: 200; width:50px;height:60px;float:left;display:inline-block";></button><br /><br />
+        <button type="submit" name="camera"><img src="stickers/angry.png"  style="width:50px;height:60px;float:left;display:inline-block";></button><br /><br />
+        <button type="submit" name="garfield"><img src="stickers/ok.png"  style="width:50px;height:60px;float:left;display:inline-block";></button><br /><br />
+        <button type="submit" name="ok"><img src="stickers/camera.png"  style="width:50px;height:60px;float:left;display:inline-block";></button><br /><br />
+</div>
+    </form>
+</div>
+<?php include 'footer.php' ;?>
+</body>
+</html>
