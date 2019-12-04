@@ -8,11 +8,13 @@ require_once "config.php";
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+$notification = empty($_GET['notification'])? '':$_GET['notification'];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Gallery</title>
     <link rel="stylesheet" href="style.css">
@@ -65,10 +67,11 @@ error_reporting(E_ALL);
                   $user_id = empty($_SESSION['username']) ? '' : $_SESSION['username'];
 
 
+
                       echo '<div class="Gallery"">
                         <a href=""><div style="background-image:url(images/gallery/'.$img.');"></div>
                         <a href="like.php?post_id='.$post_id.'"><button type="button" class="btn btn-default btn-sm"  name = "like" ><span class="glyphicon glyphicon-thumbs-up"></span>Like</button></a>
-                        <a href="comment.php?post_id='.$post_id.'"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon"></span>Comment</button></a>
+                        <a href="comment.php?post_id='.$post_id.'&notification='.$notification.'"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon"></span>Comment</button></a>
                       </a></div>'
                       ;
 

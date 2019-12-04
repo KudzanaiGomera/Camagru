@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
-    header("location: login.php");
+    header("location: index.php");
     exit();
 }
 ?>
@@ -20,6 +20,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>User Profile</title>
     <link rel="stylesheet" href="style.css">

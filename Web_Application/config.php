@@ -1,6 +1,6 @@
 <?php
 
-require_once "install.php";
+require_once "database.php";
 
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */

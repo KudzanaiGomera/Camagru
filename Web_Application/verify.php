@@ -35,12 +35,12 @@ if(isset($_GET['vkey']))
 	    $sub_result = $statement->rowCount();
 	    if(isset($sub_result))
 	    {
-	     $message = '<label class="text-success">Your email address was successfully verified <br />You can login here - <a href="login.php">login</a></label>';
+	     $message = '<label class="text-success">Your email address was successfully verified <br />You can login here - <a href="index.php">login</a></label>';
 			}
 	   }
 	   else
 	   {
-	    header('location: login.php');
+	    header('location: index.php');
 		 }
   }
  }
@@ -55,6 +55,7 @@ if(isset($_GET['vkey']))
 <!DOCTYPE html>
 <html>
  <head>
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Email Verification</title>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">

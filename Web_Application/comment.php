@@ -12,15 +12,16 @@ ini_set('display_errors', 1);
 
 	// Check if the user is logged in, if not then redirect him to login page
 	if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-	    header("location: login.php");
+	    header("location: index.php");
 	    exit();
 	}
 
 
   //new code
-$notification = empty($_POST['notification'])? '': $_POST['notification'];
+$notification = empty($_GET['notification'])? '': $_GET['notification'];
 $user_id = empty(($_SESSION['username']))? '': ($_SESSION['username']);
 $post_id = empty(intval($_GET['post_id']))? '':intval($_GET['post_id']);
+
 
 if($stmt = $pdo->prepare($sql = "SELECT * FROM uploads WHERE id = $post_id")){
 	$stmt->execute();
@@ -29,8 +30,6 @@ if($stmt = $pdo->prepare($sql = "SELECT * FROM uploads WHERE id = $post_id")){
 	}
 }
 
-echo "user from the table : ".$id.'<br>';
-
 if($stmt = $pdo->prepare($sql = "SELECT * FROM users WHERE id = $id")){
 	$stmt->execute();
 
@@ -38,12 +37,11 @@ if($stmt = $pdo->prepare($sql = "SELECT * FROM users WHERE id = $id")){
 		$email = $row['email'];
 	}
 }
-echo "email of a differ user : ".$email;
 
 
   if(isset($_POST['submit'])){
 
-    $comment = $_POST['comment'];
+    $comment = htmlspecialchars(strip_tags(trim($_POST['comment'])));
 
     $sql = "SELECT * FROM comments";
     try {
@@ -91,6 +89,7 @@ echo "email of a differ user : ".$email;
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Comments</title>
   <link rel="stylesheet" type="text/css" href="style.css"></link>
