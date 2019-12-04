@@ -80,14 +80,7 @@ ini_set('display_errors', 1);
 
                header("location: user_profile.php?upload=success");
             }
-            // $query = "INSERT INTO 'uploads' ('user_id', 'imageFullName') VALUES ('$user_id', '$fileNameNew')";
-            // execute($query);
-            //$up = new User();
-            // $up->upload_image(array(
-            //     'user_id' => $up->data()->id,
-            //     'image_name' => $fileNameNew,
-            //     'likes' => 0
-            // ));
+            
         }
         list($srcWidth, $srcHeight) = getimagesize($srcPath);
         imagecolortransparent($src, imagecolorat($src, 0, 0));
@@ -106,10 +99,93 @@ ini_set('display_errors', 1);
         }
         imagedestroy($dest);
         imagedestroy($src);
-    }else if (isset($_POST['url']) && isset($_POST['post_pic']))
-    {
-        echo "<script>alert('You forgot something like taking a picture or selecting a frame');</script>";
-    }
+     }else if (isset($_POST['url']) && isset($_POST['post_pic']))
+     {
+         // echo "<script>alert('You forgot something like taking a picture or selecting a frame');</script>";
+         if (!file_exists("images/gallery/"))
+         {
+             mkdir("images/gallery/");
+         }
+         if ($_POST['origin'] == "file")
+         {
+             $image = "images/gallery/".$_FILES['src']['name'];
+             $target = "images/gallery/".basename($_FILES['src']['name']);
+             move_uploaded_file($_FILES["src"]["tmp_name"], $target);
+         }
+         else
+         {
+            // $username = $SESSION['login'];
+             $rawData = $_POST['url'];
+             $filteredData = explode(',', $rawData);
+             $unencoded = base64_decode($filteredData[1]);
+             $randomName = rand(0, 99999);
+
+             //Create the image
+             $fp = fopen("images/gallery/".$randomName.'.jpg', 'w');
+             fwrite($fp, $unencoded);
+             fclose($fp);
+             $image = "images/gallery/".$randomName.".jpg";
+         }
+         $srcPath = $_POST['chosen_frame'];
+         if (substr($image, -3) == "jpg")
+         {
+             $dest = imagecreatefromjpeg($image);
+         }
+         else if (substr($image, -3) == "png")
+         {
+             $dest = imagecreatefrompng($image);
+         }
+         else if (substr($image, -3) == "gif")
+         {
+             $dest = imagecreatefromgif($image);
+         }
+         $src = imagecreatefrompng($srcPath);
+         $srcXpos = 0;
+         $srcYpos = 0;
+         $srcXcrop = 0;
+         $srcYcrop = 0;
+         $time = time();
+         if (substr($image, -3) == "gif")
+         {
+             $newImageName = "images/gallery/".$username."_".date("Y_m_d", $time)."_".$time.".gif";
+         }
+         else
+         {
+             //$newImageName = "images/".$username."_".date("Y_m_d", $time)."_".$time.".jpg";
+
+             $name = substr((uniqid('', true)),17 ,23);
+             $fileNameNew = $name."."."jpg";
+             $newImageName = "images/gallery/".$name.".".'jpg';
+             $user_id = $_SESSION['id'];
+             $sql = "INSERT INTO uploads (user_id,imageFullName) VALUES (?,?)";
+             if(!$stmt = $pdo->prepare($sql)){
+                 echo "SQL statement failed";
+             }else{
+
+               $stmt->execute([$user_id, $fileNameNew]);
+
+                header("location: user_profile.php?upload=success");
+             }
+
+         }
+         list($srcWidth, $srcHeight) = getimagesize($srcPath);
+         imagecolortransparent($src, imagecolorat($src, 0, 0));
+         imagecopymerge($dest, $src, $srcXpos, $srcYpos, $srcXcrop, $srcYcrop, $srcWidth, $srcHeight, 100);
+         if (substr($image, -3) == "gif")
+         {
+             imagegif($dest, $newImageName, 100);
+         }
+         else
+         {
+             imagejpeg($dest, $newImageName, 100);
+         }
+         if (file_exists($image))
+         {
+             unlink($image);
+         }
+         imagedestroy($dest);
+         imagedestroy($src);
+     }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -342,6 +418,61 @@ ini_set('display_errors', 1);
                     <img class="frame" id="dog" src="images/1.png">
                     <img class="frame" id="plane" src="images/2.png">
                     <img class="frame" id="jack" src="images/3.png">
+                </div>
+                <div class="gallery-container">
+                  <?php
+                  $user_id = empty($_SESSION['id']) ? '' : $_SESSION['id'];
+                  //retrieve posts from the database
+                  $page_num = empty($_GET['pagenum']) ? '' : $_GET['pagenum'];
+                  if (!$page_num){
+                    $page_num = 1;
+                  }
+                  $i = 0;
+                  $nextpage = $page_num+1;
+                  $prevpage = $page_num-1;
+
+                  try {
+                    $amount = 100;
+                    $start = ($page_num - 1) * $amount;
+                    $sql = "SELECT * FROM uploads WHERE user_id = $user_id ORDER BY created_at DESC LIMIT $start, $amount";
+                    if (!$stmt = $pdo->prepare($sql)){
+                      echo "SQL statement failed";
+                    }else {
+                      $stmt->execute();
+                      $count = $stmt->rowCount();
+                      $likes = 0;
+
+                      if($page_num >= 2)
+                        echo "<a href='gallery.php?pagenum=$prevpage'><button type='button' class='btn btn-default btn-sm' ><span class='glyphicon glyphicon'></span>PREV</button><a/><br/>";
+
+                        if($count >= $amount)
+                          echo "<a href='gallery.php?pagenum=$nextpage'><button type='button' class='btn btn-default btn-sm' ><span class='glyphicon glyphicon'></span>NEXT</button><a/><br/>";
+
+                        $res = $stmt->fetchAll();
+                        $i = 0;
+
+                        foreach ($res as $image) {
+                          $img = $image['imageFullName'];
+                          $post_id = $image['id'];
+                          $user_id = empty($_SESSION['id']) ? '' : $_SESSION['id'];
+
+                              echo '<div class="Gallery"">
+                                <a href=""><div style="background-image:url(images/gallery/'.$img.');"></div>
+                              </a></div>'
+                              ;
+
+                              if($i == 2){
+                                echo '<br>';
+                                $i = -1;
+                              }
+                              $i++;
+                        }
+                        $c = 0;
+                    }
+                  } catch (Exception $e) {
+                    echo "ERROR: " . $e->getMessage() . "<br/>";
+                  }
+                  ?>
                 </div>
             </div>
             <?php
