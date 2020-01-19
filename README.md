@@ -1,4 +1,4 @@
-#Camagru
+# Camagru
 
 Camagru is an Instagram-like website. It allows you to take pictures with your webcam or upload one, and add beautiful filters on it.
 
@@ -12,7 +12,7 @@ Web_Application and it will automatically create and load the database and displ
 
 Enjoy!
 
-#Contraints
+# Contraints
 no constrains
 
-#Website overview coming up soon
+# Website overview coming up soon
