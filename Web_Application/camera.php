@@ -80,7 +80,7 @@ ini_set('display_errors', 1);
 
                header("location: user_profile.php?upload=success");
             }
-            
+
         }
         list($srcWidth, $srcHeight) = getimagesize($srcPath);
         imagecolortransparent($src, imagecolorat($src, 0, 0));

@@ -1,7 +1,6 @@
 <?php
 // Initialize the session
 
-// $_SESSION["username"] = NULL;
 session_start();
 
 require_once('config.php');
@@ -25,7 +24,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
     <title>User Profile</title>
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="jpeg_camera/jpeg_camera_with_dependencies.min.js" type="text/javascript"></script>
 </head>
 <body>
   <?php include 'header.php';?>

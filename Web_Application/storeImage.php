@@ -80,14 +80,7 @@ if(isset($_POST['submit'])){
 
 <div class="container">
     <h1 class="text-center">Camera</h1>
-
-    <form method="POST" action="" enctype="multipart/form-data">
-        <button type="submit" name="angry"><img src="stickers/garfield.png" style= " opacity: 200; width:50px;height:60px;float:left;display:inline-block";></button><br /><br />
-        <button type="submit" name="camera"><img src="stickers/angry.png"  style="width:50px;height:60px;float:left;display:inline-block";></button><br /><br />
-        <button type="submit" name="garfield"><img src="stickers/ok.png"  style="width:50px;height:60px;float:left;display:inline-block";></button><br /><br />
-        <button type="submit" name="ok"><img src="stickers/camera.png"  style="width:50px;height:60px;float:left;display:inline-block";></button><br /><br />
 </div>
-    </form>
 </div>
 <?php include 'footer.php' ;?>
 </body>

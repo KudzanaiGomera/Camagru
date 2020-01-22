@@ -135,7 +135,7 @@ if(isset($_POST['submit'])){
                 //Send Email
                 $to = $new_email;
                 $subject = "Email Verification";
-                $message =  " click this link!<a href = 'http://localhost:8080/Web_Application/verify.php?vkey=$vkey'>Register Account</a>";
+                $message =  " click this link!<a href = 'http://localhost:8080/verify.php?vkey=$vkey'>Register Account</a>";
                 $headers = "From:noreply@localhost:8080 \r\n";
                 $headers .= "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
@@ -195,12 +195,12 @@ if(isset($_POST['submit'])){
           </div>
             <div class="form-group <?php echo (!empty($new_password_err)) ? 'has-error' : ''; ?>">
                 <label>New Password</label>
-                <input type="password" name="new_password" class="form-control" value="<?php echo $new_password; ?>">
+                <input type="password" name="new_password" class="form-control" value="" placeholder ="Enter Password" autocomplete="New-password"<?php echo $new_password; ?>">
                 <span class="help-block"><?php echo $new_password_err; ?></span>
             </div>
             <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
                 <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control">
+                <input type="password" name="confirm_password" class="form-control" placeholder ="Enter Password" autocomplete="New-password">
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group">

@@ -64,10 +64,10 @@ try{
 try{
     $sql = "CREATE TABLE  IF NOT EXISTS comments(
         id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        user_id VARCHAR(50),
+        user_id INT(50),
         comment TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users(username)
+        FOREIGN KEY (user_id) REFERENCES users(id)
     )";
     $pdo->exec($sql);
 } catch(PDOException $e){

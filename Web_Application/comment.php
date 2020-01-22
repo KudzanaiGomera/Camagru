@@ -19,7 +19,7 @@ ini_set('display_errors', 1);
 
   //new code
 $notification = empty($_GET['notification'])? '': $_GET['notification'];
-$user_id = empty(($_SESSION['username']))? '': ($_SESSION['username']);
+$user_id = empty(($_SESSION['id']))? '': ($_SESSION['id']);
 $post_id = empty(intval($_GET['post_id']))? '':intval($_GET['post_id']);
 
 

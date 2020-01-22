@@ -21,12 +21,13 @@ ini_set('display_errors', 1);
 
 $message = ' ';
 $user_id = $_SESSION['id'];
+$notification = "";
 
 if($stmt = $pdo->prepare($sql = "SELECT * FROM notification WHERE user_id = $user_id")){
 	$stmt->execute();
 
 	while ($row= $stmt->fetch()){
-		$notification = $row['action'];
+		$notification = empty($row['action']) ? '':$row['action'];
 	}
 }
 

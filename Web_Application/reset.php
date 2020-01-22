@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   //Send Email
                   $to = $email;
                   $subject = "Password Reset";
-                  $message =  " click this link!<a href = 'http://localhost:8080/Web_Application/reset_password.php?email=$email'>Reset Password</a>";
+                  $message =  " click this link!<a href = 'http://localhost:8080/reset_password.php?email=$email'>Reset Password</a>";
                   $headers = "From:noreply@localhost:8080 \r\n";
                   $headers .= "MIME-Version: 1.0" . "\r\n";
                   $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";

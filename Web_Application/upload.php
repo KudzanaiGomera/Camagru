@@ -14,12 +14,12 @@ ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 
-$user_id = $_SESSION['id'];
+$user_id = empty($_SESSION['id']? '': $_SESSION['id']);
 
 if (isset($_POST['submit']))
 {
 
-  $newFileName = $_POST['filename'];
+  $newFileName = empty($_POST['filename'])? '': $_POST['filename'];
   if(empty($newFileName)){
     $newFileName = "gallery";
   } else {

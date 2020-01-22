@@ -124,7 +124,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 //Send Email
                 $to = $email;
                 $subject = "Email Verification";
-                $message =  " click this link!<a href = 'http://localhost:8080/Web_Application/verify.php?vkey=$vkey'>Register Account</a>";
+                $message =  " click this link!<a href = 'http://localhost:8080/verify.php?vkey=$vkey'>Register Account</a>";
                 $headers = "From:noreply@localhost:8080 \r\n";
                 $headers .= "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
