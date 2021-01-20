@@ -3,7 +3,7 @@
 // Initialize the session
 session_start();
 
-require_once "config.php";
+require_once "connection/config.php";
 //Report all errors
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -17,12 +17,12 @@ $notification = empty($_GET['notification'])? '':$_GET['notification'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Gallery</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-<?php include 'header.php' ;?>
+<?php include 'includes/header.php' ;?>
   <main>
 
     <section class="gallery-links">
@@ -90,7 +90,7 @@ $notification = empty($_GET['notification'])? '':$_GET['notification'];
     <section>
 
   </main>
-<?php include 'footer.php' ;?>
+<?php include 'includes/footer.php' ;?>
 <script>
 $("button").click(function(){
   $("button").removeClass("active");

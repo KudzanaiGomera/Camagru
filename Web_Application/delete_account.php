@@ -1,5 +1,5 @@
 <?php
- require_once "config.php";
+ require_once "connection/config.php";
 
 //session start
 if(session_status() == PHP_SESSION_NONE){

@@ -1,6 +1,6 @@
 <?php
 // setting up connection
-require_once "config.php";
+require_once "connection/config.php";
 
 //session start
 if(session_status() == PHP_SESSION_NONE){
@@ -44,13 +44,13 @@ $post_id = intval($_GET['post_id']);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Likes</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="style.css"></link>
 </head>
 <body>
-<?php include 'header.php';?>
+<?php include 'includes/header.php';?>
 <h3><?php echo $message; ?></h3>
 <?php header("location: gallery.php")?>
-<?php include 'footer.php' ;?>
+<?php include 'includes/footer.php' ;?>
 </body>
 </html>

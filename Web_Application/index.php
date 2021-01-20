@@ -9,7 +9,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 }
 
 // Include config file
-require_once "config.php";
+require_once "connection/config.php";
 
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -91,7 +91,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; }
@@ -99,8 +99,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </style>
 </head>
 <body>
-  <?php include 'header.php';?>
-    <div class="wrapper">
+  <?php include 'includes/header.php';?>
+    <div class="container">
+        <h1 style="color: deepskyblue; font-weight: bold">CAMA<span style="color: green;">GRU</span></h1>
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -121,6 +122,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <p>Forgotten your password? <a href="reset.php">Reset Password</a>.</p>
         </form>
     </div>
-    <?php include 'footer.php' ;?>
+    <?php include 'includes/footer.php' ;?>
 </body>
 </html>

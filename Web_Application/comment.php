@@ -3,7 +3,7 @@
 session_start();
 
 // Include config file
-require_once "config.php";
+require_once "connection/config.php";
 
 ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
@@ -92,10 +92,10 @@ if($stmt = $pdo->prepare($sql = "SELECT * FROM users WHERE id = $id")){
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Comments</title>
-  <link rel="stylesheet" type="text/css" href="style.css"></link>
+  <link rel="stylesheet" type="text/css" href="css/style.css"></link>
 </head>
 <body>
-	<?php include 'header.php';?>
+	<?php include 'includes/header.php';?>
   <form method="POST" action="">
     <table>
     <tr><td colspan="2">Comment: </td></tr>
@@ -117,6 +117,6 @@ if($stmt = $pdo->prepare($sql = "SELECT * FROM users WHERE id = $id")){
     }
   }
    ?>
-<?php include 'footer.php' ;?>
+<?php include 'includes/footer.php' ;?>
 </body>
 </html>

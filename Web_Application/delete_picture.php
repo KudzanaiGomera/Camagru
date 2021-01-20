@@ -1,6 +1,6 @@
 <?php
 // setting up connection
-require_once "config.php";
+require_once "connection/config.php";
 
 //session start
 if(session_status() == PHP_SESSION_NONE){
@@ -22,11 +22,25 @@ ini_set('display_errors', 1);
 $user_id = $_SESSION['id'];
 $post_id = intval($_GET['post_id']);
 
+
+$sql = "DELETE FROM likes WHERE post_id = '$post_id'";
+
+$sql2 = "DELETE FROM uploads WHERE id = '$post_id'";
+
+// deleting likes first so that we won't have foreign constrant error
 try {
-    $stmt = $pdo->prepare("DELETE FROM uploads WHERE id = '$post_id'");
+    $stmt = $pdo->prepare($sql);
     $stmt->execute([$post_id]);
-    header("location: user_profile.php?delete=success");
   } catch (\PDOException $e) {
       die("Cannot try" . $e->getMessage());
   }
+
+// then delete the image
+try {
+  $stmt = $pdo->prepare($sql2);
+  $stmt->execute([$post_id]);
+  header("location: user_profile.php?delete=success");
+} catch (\PDOException $e) {
+    die("Cannot try" . $e->getMessage());
+}
 ?>

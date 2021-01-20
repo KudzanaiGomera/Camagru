@@ -16,3 +16,10 @@ Enjoy!
 no constrains
 
 # Website overview coming up soon
+
+![Login image](./Web_Application/screenshots/login.png)
+![Home image](./Web_Application/screenshots/home.png)
+![Upload image](./Web_Application/screenshots/upload.png)
+![Gallery image](./Web_Application/screenshots/gallery.png)
+![Reset image](./Web_Application/screenshots/reset.png)
+![Camera image](./Web_Application/screenshots/camera.png)

@@ -1,6 +1,6 @@
 <?php
 // setting up connection
-require_once "config.php";
+require_once "connection/config.php";
 
 //session start
 if(session_status() == PHP_SESSION_NONE){
@@ -54,11 +54,11 @@ if(isset($_POST['notification']))
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Notification</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="style.css"></link>
 </head>
 <body>
-<?php include 'header.php';?>
+<?php include 'includes/header.php';?>
 <h3><?php echo $message; ?></h3>
 <?php
 
@@ -74,6 +74,6 @@ echo'<a href="comment.php?notification='.$notification.'">Back to comments</a>';
 echo'<a href="gallery.php?notification='.$notification.'"><button type="button" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon"></span>Gallery</button></a>';
 
 ?>
-<?php include 'footer.php' ;?>
+<?php include 'includes/footer.php' ;?>
 </body>
 </html>

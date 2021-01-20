@@ -1,6 +1,6 @@
 <?php
 
-require_once "config.php";
+require_once "connection/config.php";
 
 //session start
 if(session_status() == PHP_SESSION_NONE){
@@ -135,8 +135,8 @@ if(isset($_POST['submit'])){
                 //Send Email
                 $to = $new_email;
                 $subject = "Email Verification";
-                $message =  " click this link!<a href = 'http://localhost:8080/verify.php?vkey=$vkey'>Register Account</a>";
-                $headers = "From:noreply@localhost:8080 \r\n";
+                $message =  " click this link!<a href = 'http://localhost/Web_Application/verify.php?vkey=$vkey'>Modify Account</a>";
+                $headers = "From:camagruteam@notfound.com \r\n";
                 $headers .= "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
 
@@ -171,15 +171,16 @@ if(isset($_POST['submit'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Reset Password</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; }
         .wrapper{ width: 350px; padding: 20px; }
     </style>
 </head>
 <body>
-  <?php include 'header.php';?>
-    <div class="wrapper">
+  <?php include 'includes/header.php';?>
+    <div class="container">
         <h2>Reset Password</h2>
         <p>Please fill out this form to reset your password.</p>
         <form method="POST" action="" enctype="multipart/form-data">
@@ -209,7 +210,7 @@ if(isset($_POST['submit'])){
             </div>
         </form>
     </div>
-    <?php include 'footer.php' ;?>
+    <?php include 'includes/footer.php' ;?>
 </body>
 </html>
 

@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 // session_start();
 
 // Include config file
-require_once "config.php";
+require_once "connection/config.php";
 
 //Report all errors
 ini_set('display_errors', 1);

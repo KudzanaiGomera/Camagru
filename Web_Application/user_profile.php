@@ -3,7 +3,7 @@
 
 session_start();
 
-require_once('config.php');
+require_once('connection/config.php');
 //Report all errors
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -22,11 +22,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>User Profile</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-  <?php include 'header.php';?>
+  <?php include 'includes/header.php';?>
   <main>
 
     <section class="gallery-links">
@@ -107,7 +107,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
       </div>
     </form>
   </div>
-<?php include 'footer.php' ;?>
+<?php include 'includes/footer.php' ;?>
 </body>
 <script>
   const fileuploader = document.getElementById('file'),

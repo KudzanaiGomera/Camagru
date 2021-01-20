@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require_once "config.php";
+require_once "connection/config.php";
 
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $email = "";
@@ -124,11 +124,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 //Send Email
                 $to = $email;
                 $subject = "Email Verification";
-                $message =  " click this link!<a href = 'http://localhost:8080/verify.php?vkey=$vkey'>Register Account</a>";
-                $headers = "From:noreply@localhost:8080 \r\n";
+                $message =  " click this link!<a href = 'http://localhost/Web_Application/verify.php?vkey=$vkey'>Register Account</a>";
+                $headers = "From:camagruteam@notfound.com \r\n";
                 $headers .= "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
-
 
                 if (mail($to,$subject,$message,$headers))
                 {
@@ -160,7 +159,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; }
@@ -168,8 +167,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </style>
 </head>
 <body>
-  <?php include 'header.php';?>
-    <div class="wrapper">
+  <?php include 'includes/header.php';?>
+    <div class="container">
+        <h1 style="color: deepskyblue; font-weight: bold">CAMA<span style="color: green;">GRU</span></h1>
         <h2>Sign Up</h2>
         <p>Please fill this form to create an account.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -195,11 +195,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
-                <input type="reset" class="btn btn-default" value="Reset">
+                <input type="reset" class="btn btn-danger" value="Reset">
             </div>
             <p>Already have an account? <a href="index.php">Login here</a>.</p>
         </form>
     </div>
-    <?php include 'footer.php' ;?>
+    <?php include 'includes/footer.php' ;?>
 </body>
 </html>

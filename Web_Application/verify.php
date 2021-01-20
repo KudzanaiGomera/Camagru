@@ -2,7 +2,7 @@
 session_start();
 
 // Include config file
-require_once "config.php";
+require_once "connection/config.php";
 
 ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
@@ -57,16 +57,16 @@ if(isset($_GET['vkey']))
  <head>
 	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Email Verification</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="css/style.css">
  <body>
-<?php include 'header.php';?>
+<?php include 'includes/header.php';?>
   <div class="container">
    <h1 align="center">Email Verification</h1>
 
    <h3><?php echo $message; ?></h3>
 
   </div>
-<?php include 'footer.php' ;?>
+<?php include 'includes/footer.php' ;?>
  </body>
 
 </html>

@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 // session_start();
 
 // Include config file
-require_once "config.php";
+require_once "connection/config.php";
 
 //Report all errors
 ini_set('display_errors', 1);
@@ -68,10 +68,10 @@ if(isset($_POST['submit'])){
     <title>Merge</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <?php include 'header.php';?>
+  <?php include 'includes/header.php';?>
     <section class="gallery-links">
       <div class="wrapper">
         <h2><?php echo htmlspecialchars($_SESSION["username"]); ?></h2>
@@ -82,6 +82,6 @@ if(isset($_POST['submit'])){
     <h1 class="text-center">Camera</h1>
 </div>
 </div>
-<?php include 'footer.php' ;?>
+<?php include 'includes/footer.php' ;?>
 </body>
 </html>

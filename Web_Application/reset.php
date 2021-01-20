@@ -1,9 +1,9 @@
 <?php
 // Include config file
-require_once "config.php";
+require_once "connection/config.php";
 
 // Define variables and initialize with empty values
-$email = empty(trim($_POST["email"]))? '': trim($_POST["email"]);
+$email = empty(trim($_POST["email"])) ? "": trim($_POST["email"]);
 $email_err = "";
 
 
@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   //Send Email
                   $to = $email;
                   $subject = "Password Reset";
-                  $message =  " click this link!<a href = 'http://localhost:8080/reset_password.php?email=$email'>Reset Password</a>";
+                  $message =  " click this link!<a href = 'http://localhost/Web_Application/reset_password.php?email=$email'>Reset Password</a>";
                   $headers = "From:noreply@localhost:8080 \r\n";
                   $headers .= "MIME-Version: 1.0" . "\r\n";
                   $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
@@ -68,14 +68,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
 </head>
 <body>
-  <?php include 'header.php';?>
+  <?php include 'includes/header.php';?>
     <section class="gallery-links">
-      <div class="wrapper">
+      <div class="container">
       </div>
     <section>
 
@@ -94,6 +95,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       </div>
     </form>
 </div>
-<?php include 'footer.php' ;?>
+<?php include 'includes/footer.php' ;?>
 </body>
 </html>
