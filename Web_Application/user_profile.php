@@ -23,7 +23,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false){
     <meta charset="UTF-8">
     <title>User Profile</title>
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
   <?php include 'includes/header.php';?>
